@@ -1,0 +1,23 @@
+
+h1 {
+  font-family: 'Hurricane', cursive;
+  text-align: center;
+  color: #90755a;
+  font-size: 50px;
+}
+
+body {
+  background-image: url(../../public/assets/img/fon.jpeg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+}
+
+.rg__form {
+  min-width: 50vw;
+  background: #fff;
+  opacity: 0.8;
+  border-radius: 12px;
+  box-shadow: 0px 0px 29px 11px rgba(11, 11, 11, 0.4);
+}

@@ -1,0 +1,45 @@
+*{
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+}
+
+h1 {
+  font-family: 'Hurricane', cursive;
+  text-align: center;
+  color: #e7e5e3;
+  font-size: 50px;
+}
+
+.rg__fon {
+  background-image: url(../../assets/img/fon.jpeg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+}
+
+.btn__auth {
+  font-family: 'Hurricane', cursive;
+  width: 100%;
+  cursor: pointer;
+  border: none;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  border-radius: 5px;
+  font-size: 24px;
+  background-color: crimson;
+  color: #fff;
+}
+
+.btn__auth:hover {
+  opacity: 0.8;
+}
+
+.rg__form {
+  width: 440px;
+  background: #2d2824;
+  opacity: 0.8;
+  border-radius: 12px;
+  box-shadow: 0px 0px 29px 11px rgba(11, 11, 11, 0.4);
+}

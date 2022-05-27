@@ -1,0 +1,32 @@
+
+.amcharts-map-area {
+    cursor: pointer;
+}
+
+.amcharts-map-area:hover {
+  fill: aqua;
+}
+
+.win {
+  fill: teal;
+}
+
+.error {
+  fill: red;
+  transition: fill 0.8s;
+}
+
+.nameCountrie {
+  background-color: #fff;
+  opacity: 0.8;
+  border-radius: 5px;
+  max-width: 80px;
+  max-height: 40px;
+  border: none;
+}
+
+.score {
+  background-color: #fff;
+  border-radius: 5px;
+  user-select: none;
+}

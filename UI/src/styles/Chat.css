@@ -1,0 +1,62 @@
+h1 {
+  font-family: 'Hurricane', cursive;
+  text-align: center;
+  color: teal;
+  font-size: 50px;
+}
+
+.chat__title {
+  font-family: 'Hurricane', cursive;
+  font-size: 42px;
+  color: teal;
+}
+
+.chat__fon {
+  background-image: url(../../public/assets/img/chat_fon.jpg);
+  background-size: cover;
+}
+
+.chat__btn {
+  font-family: 'Hurricane', cursive;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 3px 20px;
+  background: teal;
+  border-radius: 12px;
+  color: #fff;
+}
+
+.chat__btn:hover {
+  opacity: 0.8;
+}
+
+.offcanvas-end {
+  width: 320px;
+  box-shadow: 15px 0px 29px 11px rgba(11, 11, 11, 0.4);
+}
+
+.chat__date {
+  font-size: 12px;
+  color: teal;
+}
+
+.chat__form {
+  min-height: 82%;
+  max-height: 82%;
+  overflow-y: auto;
+  word-break: break-all;
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    /* background-color: #fff; */
+  }
+
+::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: #505050;
+    max-height: 20px;
+  }
