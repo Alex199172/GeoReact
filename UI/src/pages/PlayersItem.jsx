@@ -1,16 +1,19 @@
 import React from 'react';
 import '../styles/PlayersItem.css';
 import Nav from '../components/Nav';
+import Search from '../components/Search';
 
 const PlayersItem = () => {
+
   return (
     <div>
       <Nav />
       <div className="rg__fon d-flex justify-content-center align-items-start pt-5">
          <div className="rg__form">
-           <h1 className="">Players item</h1>
+         <h1 className="mt-3 mb-4">Players Item</h1>
+           <Search />
        <table className="table">
-         <thead>
+        <thead>
            <tr className="">
              <th className="text-center" scope="col">Login</th>
              <th className="text-center" scope="col">Status</th>
@@ -18,7 +21,7 @@ const PlayersItem = () => {
              <th className="text-center" scope="col">Updated</th>
              <th className="text-center" scope="col"></th>
            </tr>
-         </thead>
+          </thead>
          <tbody>
            <tr>
              <th className="text-center align-middle">Alex</th>

@@ -1,37 +1,87 @@
 import React from 'react';
+import {useState} from 'react';
 import {Link} from 'react-router-dom';
 import '../styles/Entry.css';
 
 const Entry = () => {
+  const [loginValue, setLoginValue] = useState('')
+  const [passwordlValue, setPasswordValue] = useState('')
+
+
+ function getData() {
+   let data = {
+          login : loginValue,
+          password : passwordlValue
+        }
+
+fetch('http://localhost:5000/auth/login', {
+          method: "POST",
+          body:JSON.stringify(data),
+          headers: {
+         'Content-Type': 'application/json'
+         },
+     }).then(rs => {
+       rs.json().then(rs => {
+         console.log('result', rs)
+         localStorage.setItem('token', rs.token)
+         localStorage.setItem('id', rs.id)
+         localStorage.setItem('login', rs.login)
+         window.location.href = '/game'
+       })
+     })
+ }
+
+
   return (
     <div>
      <div className="rg__fon d-flex justify-content-center align-items-center">
+      <div className="position-absolute top-0 end-0">
+        Russ/Eng
+      </div>
         <form className="form__entrie">
           <div className="entry__form">
             <div className="text center">
               <h1 className="entry__title">
-                Log In
+                  Log In
               </h1>
             </div>
               <div className="p-4 pt-2 pb-2">
                 <div>
                   <label for="rg__name" className="form-label"></label>
-                  <input type="text" className="form-control entrie__login" placeholder="login" required />
+                  <input
+                    type="text"
+                    className="form-control entrie__login"
+                    placeholder="login"
+                    required
+                    value = {loginValue}
+                    onChange = {event => setLoginValue(event.target.value)}
+                     />
                 </div>
                 <div>
                   <label for="rg__name" className="form-label"></label>
-                  <input type="password" className="form-control entrie__password" placeholder="password" required />
+                  <input
+                    type="password"
+                    className="form-control entrie__password"
+                    placeholder="password"
+                    required
+                    value = {passwordlValue}
+                    onChange = {event => setPasswordValue(event.target.value)}
+                    />
                 </div>
                 <div className="mt-4">
                  <div>
-                    <button type="submit" className="btn__auth btn__entrie">
+                    <button
+                      type="submit"
+                      className="btn__auth btn__entrie"
+                      onClick = {getData}
+                      >
                       Sign In
-                    </button>
+                      </button>
                   </div>
                   <div className="text-end mt-3">
-                    <Link to="/registration" className="nav__menu-link">
-                      Sign Up
-                    </Link>
+                      <Link to="/registration" className="nav__menu-link">
+                        Sign Up
+                      </Link>
                   </div>
                 </div>
               </div>

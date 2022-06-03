@@ -1,16 +1,19 @@
 import React from 'react';
 import '../styles/PlayersOnline.css';
 import Nav from '../components/Nav';
+import Search from '../components/Search';
 
 const PlayersOnline = () => {
+
   return (
     <div>
       <Nav />
       <div className="rg__fon d-flex justify-content-center align-items-start pt-5">
           <div className="rg__form">
-            <h1 className="">Players Online</h1>
+            <h1 className="mt-3 mb-4">Players History</h1>
+            <Search />
             <table className="table">
-              <thead>
+             <thead>
                 <tr className="">
                   <th className="text-center align-middle" scope="col">Login</th>
                   <th className="text-center align-middle" scope="col">in Game</th>

@@ -40,6 +40,10 @@ h1 {
   color: teal;
 }
 
+.btn__burger {
+  user-select: none !important;
+}
+
 .chat__form {
   min-height: 82%;
   max-height: 82%;

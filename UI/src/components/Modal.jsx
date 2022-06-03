@@ -4,7 +4,7 @@ import '../styles/Modal.css';
 const Modal = ({active, setActive, children}) => {
   return (
     <div
-    className={active ? 'modal active' : 'modal'}
+    className={active ? 'modalWindow active' : 'modalWindow'}
     onClick={() => setActive(false)}
     >
       <div

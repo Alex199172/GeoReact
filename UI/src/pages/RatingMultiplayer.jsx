@@ -1,14 +1,17 @@
 import React from 'react';
 import Nav from '../components/Nav';
-import '../styles/Rating.css';
+import '../styles/RatingMultiplayer.css';
+import Search from '../components/Search';
 
 const Rating = () => {
+
   return (
     <div>
       <Nav />
       <div className="rg__fon d-flex justify-content-center align-items-start pt-5">
           <div className="rg__form">
-            <h1 className="">Player Rating</h1>
+            <h1 className="mt-3 mb-4">Rating Multiplayer</h1>
+            <Search />
               <table className="table">
                 <thead>
                   <tr className="">

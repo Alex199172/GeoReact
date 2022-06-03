@@ -8,7 +8,7 @@ const Chat = () => {
                type="button" data-bs-toggle="offcanvas"
                data-bs-target="#offcanvasScrolling"
                aria-controls="offcanvasScrolling">
-           <img className="mt-5" src="https://img.icons8.com/material-sharp/24/000000/menu--v1.png" alt="chat" />
+           <img className="mt-5 btn__burger" src="https://img.icons8.com/material-sharp/24/000000/menu--v1.png" alt="chat" />
        </button>
 
        <div className="offcanvas offcanvas-end"

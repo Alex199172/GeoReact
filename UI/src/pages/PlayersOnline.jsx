@@ -1,14 +1,18 @@
 import React from 'react';
 import Nav from '../components/Nav';
 import '../styles/PlayersHistory.css';
+import Search from '../components/Search';
 
 const PlayersHistory = () => {
+
+
   return (
     <div>
       <Nav />
       <div className="rg__fon d-flex justify-content-center align-items-start pt-5">
           <div className="rg__form">
-            <h1 className="">Players history</h1>
+            <h1 className="mt-3 mb-4">Players Online</h1>
+            <Search />
             <table className="table">
               <thead>
                 <tr className="">

@@ -15,9 +15,14 @@ const Nav = () => {
               Game
             </div>
           </Link>
-          <Link to="/rating" className="nav__menu-link">
+          <Link to="/rating-single" className="nav__menu-link">
             <div className="nav__menu-item me-3 px-3">
-              Rating
+              Rating Single
+            </div>
+          </Link>
+          <Link to="/rating-multiplayer" className="nav__menu-link">
+            <div className="nav__menu-item me-3 px-3">
+              Rating Multiplayer
             </div>
           </Link>
           <Link to="/online" className="nav__menu-link">

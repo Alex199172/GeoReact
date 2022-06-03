@@ -1,16 +1,8 @@
 import React from 'react';
-import {useState} from 'react';
 import '../styles/Game.css';
-import Nav from '../components/Nav';
-import Timer from '../components/Timer';
-import Chat from '../components/Chat';
-import Modal from '../components/Modal';
 
-
-const Game = () => {
-  const [modalActive, setModalActive] = useState(false)
-  const [scoreCount, setScoreCount] = useState(0)
-  const contantModal = ""
+const Traning = () => {
+  const languageChange = false
 
   const countries = [
   {
@@ -900,39 +892,8 @@ const Game = () => {
   }
 ]
 
-  function hidenModal() {
-    setModalActive(() => setModalActive(false))
-  }
-
-  function showModal() {
-    setModalActive(() => setModalActive(true))
-  }
-
-  function randomCountry() {
-    const random = Math.floor(Math.random()*countries.length);
-    return countries[random].label;
-  }
-
-  function choiceCountrie() {
-
-  }
-
-
   return (
     <div>
-      <Nav />
-      <Timer
-        showModal={showModal}
-        hidenModal={hidenModal}
-        randomCountry={randomCountry}
-        />
-      <Chat />
-      <div className="position-absolute top-50 start-50 text-light name__country">
-        {randomCountry}
-      </div>
-      <div className="position-absolute top-50 start-0 translate-middle-y score fs-2 ps-3 pe-4">
-        {setScoreCount}
-      </div>
       <svg version="1.1" viewBox="500 0 950 650" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width="100%" height="100vh" xmlSpace="preserve">
             <g>
                 <path cs="100,100" d="M0.5,0.5 L1919.5,0.5 L1919.5,586.5 L0.5,586.5 Z" fill="#505050" stroke="#000000" fillOpacity="1" strokeWidth="1" strokeOpacity="1" className="amcharts-bg"></path>
@@ -940,21 +901,13 @@ const Game = () => {
             <g>
                 <g transform="translate(505.3871808293184,207.24503371416955) scale(1)">
                     <g transform="translate(0,0) scale(0.9017769606464239)">
-                      {countries.map( (country, i) => (
-                        <path cs="100,100" d={country.path} fill="#505050" stroke="#000000" fill-opacity="1" stroke-width="1" stroke-opacity="1" className="amcharts-bg" arial={country.label} countryId={country.countryId}></path>
-
-                      ))}
+                      countries
                     </g>
                 </g>
             </g>
         </svg>
-      <Modal
-        active={modalActive}
-        setActive={setModalActive}
-        children={contantModal}
-        />
     </div>
   );
 };
 
-export default Game;
+export default Traning;

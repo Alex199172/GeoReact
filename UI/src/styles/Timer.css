@@ -20,3 +20,8 @@
 .start__btn:hover {
   opacity: 0.8;
 }
+
+.timerColor {
+  background-color: #6f181b;
+  color: #fff;
+}
