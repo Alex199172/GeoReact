@@ -1,15 +1,19 @@
 import React from 'react';
-import '../styles/Game.css';
+import {useState} from 'react';
+import '../styles/Traning.css';
+import Nav from '../components/Nav';
+import Modal from '../components/Modal';
+
 
 const Traning = () => {
-  const languageChange = false
-
+  const [modalActive, setModalActive] = useState(false)
+  // const [contantModal, setContantModal] = useState('')
   const countries = [
-  {
-    "path": "M0.5,0.5 L1919.5,0.5 L1919.5,586.5 L0.5,586.5 Z",
-    "label": null,
-    "countryId": null
-  },
+  // {
+  //   "path": "M0.5,0.5 L1919.5,0.5 L1919.5,586.5 L0.5,586.5 Z",
+  //   "label": null,
+  //   "countryId": null
+  // },
   {
     "path": "M619.874,393.722L620.373,393.573L620.477,394.411L622.671,393.93L624.99,394.009L626.684,394.1L628.604,392.028L630.695,390.054L632.467,388.146L633.001,389.202L633.382,391.639L631.949,391.651L631.72,393.648L632.216,394.073L630.947,394.674L630.939,395.919L630.122,397.175L630.049,398.394L629.484,399.032L621.056,397.508L619.981,394.428z",
     "label": "United Arab Emirates  ",
@@ -891,9 +895,24 @@ const Traning = () => {
     "countryId": "LR"
   }
 ]
+  const contantModal = `{
+    <h1>{11111111}</h1>
+    <div>{flag}</div>
+    <div>fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>
+  }`
+
+
+  function hidenModal() {
+    setModalActive(() => setModalActive(false))
+  }
+
+  function showModal(event) {
+    setModalActive(() => setModalActive(true))
+  }
 
   return (
     <div>
+      <Nav />
       <svg version="1.1" viewBox="500 0 950 650" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width="100%" height="100vh" xmlSpace="preserve">
             <g>
                 <path cs="100,100" d="M0.5,0.5 L1919.5,0.5 L1919.5,586.5 L0.5,586.5 Z" fill="#505050" stroke="#000000" fillOpacity="1" strokeWidth="1" strokeOpacity="1" className="amcharts-bg"></path>
@@ -901,11 +920,30 @@ const Traning = () => {
             <g>
                 <g transform="translate(505.3871808293184,207.24503371416955) scale(1)">
                     <g transform="translate(0,0) scale(0.9017769606464239)">
-                      countries
+                      {countries.map(country => (
+                        <path cs="100,100"
+                            className="amcharts-map-area"
+                            onClick={showModal}
+                            d={country.path}
+                            fill="#818181"
+                            transform="translate(0,-230)"
+                            stroke="#505050" role="menuitem"
+                            fillOpacity="1"
+                            strokeWidth="1.1089216553982113"
+                            strokeOpacity="1"
+                            arial={country.label}
+                            countryid={country.countryId}>
+                        </path>
+                      ))}
                     </g>
                 </g>
             </g>
         </svg>
+      <Modal
+        active={modalActive}
+        setActive={setModalActive}
+        children={contantModal}
+        />
     </div>
   );
 };

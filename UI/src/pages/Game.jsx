@@ -1,23 +1,34 @@
 import React from 'react';
-import {useState} from 'react';
+import {useState, useContext} from 'react';
+import {MapContext} from '../context';
 import '../styles/Game.css';
 import Nav from '../components/Nav';
 import Timer from '../components/Timer';
 import Chat from '../components/Chat';
 import Modal from '../components/Modal';
+import Preloader from '../components/Preloader';
 
 
 const Game = () => {
+  let [randomCountry, setRandomCountry] = useState('')
+  let [scoreCount, setScoreCount] = useState(0)
   const [modalActive, setModalActive] = useState(false)
-  const [scoreCount, setScoreCount] = useState(0)
+  const [preloaderActive, setPreloaderActive] = useState(false)
+  const [trueColorAnswer, setTrueColorAnswer] = useState(false)
+  const [falseColorAnswer, setFalseColorAnswer] = useState(false)
+  // const [mapWorldValue, setMapWorldValue] = useContext(MapContext);
+  // const [mapAfricaValue, setMapAfricaValue] = useContext(MapContext);
+  // const [mapAsiaValue, setMapAsiaValue] = useContext(MapContext);
+  // const [mapLatinAmericaValue, setMapLatinAmericaValue] = useContext(MapContext);
   const contantModal = ""
 
+
   const countries = [
-  {
-    "path": "M0.5,0.5 L1919.5,0.5 L1919.5,586.5 L0.5,586.5 Z",
-    "label": null,
-    "countryId": null
-  },
+  // {
+  //   "path": "M0.5,0.5 L1919.5,0.5 L1919.5,586.5 L0.5,586.5 Z",
+  //   "label": null,
+  //   "countryId": null
+  // },
   {
     "path": "M619.874,393.722L620.373,393.573L620.477,394.411L622.671,393.93L624.99,394.009L626.684,394.1L628.604,392.028L630.695,390.054L632.467,388.146L633.001,389.202L633.382,391.639L631.949,391.651L631.72,393.648L632.216,394.073L630.947,394.674L630.939,395.919L630.122,397.175L630.049,398.394L629.484,399.032L621.056,397.508L619.981,394.428z",
     "label": "United Arab Emirates  ",
@@ -908,13 +919,108 @@ const Game = () => {
     setModalActive(() => setModalActive(true))
   }
 
-  function randomCountry() {
-    const random = Math.floor(Math.random()*countries.length);
-    return countries[random].label;
+  function changeRandomCountry() {
+    setRandomCountry(() => {
+      const random = Math.floor(Math.random()*countries.length);
+      randomCountry = countries[random].label;
+      return randomCountry;
+    })
   }
 
-  function choiceCountrie() {
+  function trueAnswerAudio() {
+    let trueAudio = new Audio('assets/audio/true.mp3');
+    trueAudio.play();
+  }
 
+  function falseAnswerAudio() {
+    let errorAudio = new Audio('assets/audio/error.mp3');
+    errorAudio.play();
+  }
+
+  function choiceCountrie(event) {
+     if(randomCountry === event.target.getAttribute('arial')) {
+       trueAnswer()
+     }
+     if(randomCountry !== event.target.getAttribute('arial')) {
+       falseAnswer()
+     }
+     console.log(event.target.getAttribute('arial'))
+     console.log(randomCountry)
+  }
+
+  function trueAnswer() {
+    trueAnswerAudio()
+    setTrueColorAnswer(() => setTrueColorAnswer(true))
+    setTimeout(() => {
+      showModal()
+      setTrueColorAnswer(() => setTrueColorAnswer(false))
+      incrementScoreCount()
+     }, 1500);
+  }
+
+  function falseAnswer() {
+    falseAnswerAudio()
+    setFalseColorAnswer(() => setFalseColorAnswer(true))
+    setTimeout(() => {
+      showModal()
+      setFalseColorAnswer(() => setFalseColorAnswer(false))
+     }, 1500);
+  }
+
+  function incrementScoreCount() {
+    setScoreCount(() => setScoreCount(scoreCount++))
+  }
+
+  function getMapWorld() {
+    fetch('http://localhost:5000/map/mapWorld', {
+              method: "Get",
+              headers: {
+             'Content-Type': 'application/json'
+             },
+         }).then(rs => {
+           rs.json().then(rs => {
+             console.log('result', rs)
+           })
+         })
+  }
+
+  function getMapAfrica() {
+    fetch('http://localhost:5000/map/mapAfrica', {
+              method: "Get",
+              headers: {
+             'Content-Type': 'application/json'
+             },
+         }).then(rs => {
+           rs.json().then(rs => {
+             console.log('result', rs)
+           })
+         })
+  }
+
+  function getMapAsia() {
+    fetch('http://localhost:5000/map/mapAsia', {
+              method: "Get",
+              headers: {
+             'Content-Type': 'application/json'
+             },
+         }).then(rs => {
+           rs.json().then(rs => {
+             console.log('result', rs)
+           })
+         })
+  }
+
+  function getMapLatinAmerica() {
+    fetch('http://localhost:5000/map/mapLatinAmerica', {
+              method: "Get",
+              headers: {
+             'Content-Type': 'application/json'
+             },
+         }).then(rs => {
+           rs.json().then(rs => {
+             console.log('result', rs)
+           })
+         })
   }
 
 
@@ -924,14 +1030,15 @@ const Game = () => {
       <Timer
         showModal={showModal}
         hidenModal={hidenModal}
-        randomCountry={randomCountry}
+        changeRandomCountry={changeRandomCountry}
+        setRandomCountry={setRandomCountry}
         />
       <Chat />
       <div className="position-absolute top-50 start-50 text-light name__country">
         {randomCountry}
       </div>
       <div className="position-absolute top-50 start-0 translate-middle-y score fs-2 ps-3 pe-4">
-        {setScoreCount}
+        {scoreCount}
       </div>
       <svg version="1.1" viewBox="500 0 950 650" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width="100%" height="100vh" xmlSpace="preserve">
             <g>
@@ -940,9 +1047,24 @@ const Game = () => {
             <g>
                 <g transform="translate(505.3871808293184,207.24503371416955) scale(1)">
                     <g transform="translate(0,0) scale(0.9017769606464239)">
-                      {countries.map( (country, i) => (
-                        <path cs="100,100" d={country.path} fill="#505050" stroke="#000000" fill-opacity="1" stroke-width="1" stroke-opacity="1" className="amcharts-bg" arial={country.label} countryId={country.countryId}></path>
-
+                    // {mapWorldValue == true ? getMapWorld : ''}
+                    // {mapAfricaValue == true ? getMapAfrica : ''}
+                    // {mapAsiaValue == true ? getMapAsia : ''}
+                    // {mapLatinAmericaValue == true ? getMapLatinAmerica : ''}
+                      {countries.map(country => (
+                        <path cs="100,100"
+                            className={`amcharts-map-area ${trueColorAnswer === true ? 'true' : ''} ${falseColorAnswer === true ? 'false' : ''} `}
+                            onClick={choiceCountrie}
+                            d={country.path}
+                            fill="#818181"
+                            transform="translate(0,-230)"
+                            stroke="#505050" role="menuitem"
+                            fillOpacity="1"
+                            strokeWidth="1.1089216553982113"
+                            strokeOpacity="1"
+                            arial={country.label}
+                            countryid={country.countryId}>
+                        </path>
                       ))}
                     </g>
                 </g>
@@ -953,6 +1075,10 @@ const Game = () => {
         setActive={setModalActive}
         children={contantModal}
         />
+      <Preloader
+        active={preloaderActive}
+        setActive={setPreloaderActive}
+      />
     </div>
   );
 };

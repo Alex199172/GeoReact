@@ -5,6 +5,7 @@ import '../styles/Timer.css';
 const Timer = ( props ) => {
   let [seconds, setSeconds] = useState(20);
   const [colorTimer, setColorTimer] = useState(false);
+  const [disabled, setDisabled] = useState(false);
 
 
   function timerAudio() {
@@ -13,7 +14,7 @@ const Timer = ( props ) => {
   }
 
   function timerRandomCountries() {
-    props.randomCountry()
+    props.changeRandomCountry()
     console.log(props)
   }
 
@@ -23,6 +24,9 @@ const Timer = ( props ) => {
 
   function timerHidenModal() {
     props.hidenModal()
+    props.setRandomCountry(() => props.setRandomCountry(''))
+    setDisabled(() => setDisabled(false))
+    setColorTimer(() => setColorTimer(false))
     setSeconds(seconds = 20)
     startTimer()
   }
@@ -30,13 +34,14 @@ const Timer = ( props ) => {
   function startTimer() {
 
   timerRandomCountries()
+  setDisabled(() => setDisabled(true))
 
   let newSetInterval = setInterval(() => {
       setSeconds(seconds = seconds-1);
       if(seconds < 10) {
         setSeconds(seconds = '0' + seconds);
       }
-      if(seconds == 5) {
+      if(seconds === 5) {
         timerAudio()
         setColorTimer(() => setColorTimer(true))
       }
@@ -50,7 +55,7 @@ const Timer = ( props ) => {
 
   return (
     <div>
-      <div className="position-absolute top-0 start-50 translate-middle-x timer p-2 d-flex {(colorTimer == true) ? 'timerColor' : ''}">
+      <div className={`position-absolute top-0 start-50 translate-middle-x timer p-2 d-flex ${colorTimer === true ? 'timerColor' : ''}`}>
           <div className="hours fs-2">
             <span>
               00:
@@ -70,6 +75,7 @@ const Timer = ( props ) => {
       <button
       className="position-absolute top-0 start-50 translate-middle-x start__btn position-absolute"
       onClick={startTimer}
+      disabled={disabled === true ? disabled : ''}
       >
         start
       </button>

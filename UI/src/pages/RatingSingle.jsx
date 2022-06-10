@@ -17,7 +17,6 @@ const Rating = () => {
                   <tr className="">
                     <th className="text-center align-middle" scope="col">Login</th>
                     <th className="text-center align-middle" scope="col">All World</th>
-                    <th className="text-center align-middle" scope="col">Europe</th>
                     <th className="text-center align-middle" scope="col">Africa</th>
                     <th className="text-center align-middle" scope="col">Asia</th>
                     <th className="text-center align-middle" scope="col">Latin America</th>
@@ -30,7 +29,6 @@ const Rating = () => {
                     <td className="text-center align-middle">3</td>
                     <td className="text-center align-middle">12</td>
                     <td className="text-center align-middle">3</td>
-                    <td className="text-center align-middle">9</td>
                   </tr>
                 </tbody>
               </table>

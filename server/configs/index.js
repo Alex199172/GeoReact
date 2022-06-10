@@ -2,7 +2,7 @@
 module.exports = {
   development: {
     server: {
-      port: 3000
+      port: 5000
     },
     database: {
       client: 'pg',
@@ -11,7 +11,7 @@ module.exports = {
         port: 5432,
         user: 'alex',
         password: 'password',
-        database: 'tictactoe'
+        database: 'geo'
       },
       migrations: {
         tableName: 'migrations',

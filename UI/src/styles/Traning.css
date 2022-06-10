@@ -1,0 +1,8 @@
+
+.amcharts-map-area {
+    cursor: pointer;
+}
+
+.amcharts-map-area:hover {
+  fill: aqua;
+}

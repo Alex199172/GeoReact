@@ -10,9 +10,9 @@ const Nav = () => {
           <img className="nav__logo_img" src="assets/img/world.png" alt="exit" />
         </div>
         <div className="nav__menu d-flex">
-          <Link to="/game" className="nav__menu-link">
+          <Link to="/menu" className="nav__menu-link">
             <div className="nav__menu-item me-3 px-3">
-              Game
+              Menu
             </div>
           </Link>
           <Link to="/rating-single" className="nav__menu-link">

@@ -1,9 +1,40 @@
 import React from 'react';
+import {useState} from 'react';
 import '../styles/PlayersItem.css';
 import Nav from '../components/Nav';
 import Search from '../components/Search';
 
 const PlayersItem = () => {
+  const [statusValue, setStatusValue] = useState(false);
+  const [statusAdmin, setStatusAdmin] = useState(true);
+  let [dateUpdate, setDateUpdate] = useState('');
+
+function changeStatusBlock() {
+  setStatusValue(() => setStatusValue(false))
+}
+
+function changeStatusUnlock() {
+  setStatusValue(() => setStatusValue(true))
+}
+
+function changeStatusUsear() {
+  setStatusAdmin(() => setStatusAdmin(false))
+}
+
+function changeStatusAdmin() {
+  setStatusAdmin(() => {setStatusAdmin(true)})
+}
+
+function changeDateUpdate() {
+  setStatusAdmin(() => {
+    let date = new Date();
+    let dateUpdate = String(date.getDate()).padStart(2, '0') + '.' +
+    String(date.getMonth() + 1).padStart(2, '0') + '.' +
+    date.getFullYear() + " " +
+    new Date().toLocaleTimeString().slice(0,-3);
+    return dateUpdate
+  })
+}
 
   return (
     <div>
@@ -26,16 +57,23 @@ const PlayersItem = () => {
            <tr>
              <th className="text-center align-middle">Alex</th>
              <td className="text-center align-middle text-white">
-               <div className="activeStatus">
-                 Active
+               <div className={statusValue === true ? 'blocked' : 'activeStatus'}>
+                 {statusValue === true ? 'Blocked' : 'Active'}
                </div>
              </td>
              <td className="text-center align-middle">May 03 2022</td>
-             <td className="text-center align-middle">May 09 2022</td>
+             <td className="text-center align-middle">{dateUpdate}</td>
              <td className="text-center align-middle">
-               <button className="btn__staus text-white">
-                 block
+             {statusAdmin === true
+               ?
+               <button className="btn__staus text-white"
+                onClick = {statusValue === true ? changeStatusBlock : changeStatusUnlock} 
+                >
+                 {statusValue === true ? 'unlock' : 'block'}
                </button>
+               :
+               ''
+             }
              </td>
            </tr>
 
