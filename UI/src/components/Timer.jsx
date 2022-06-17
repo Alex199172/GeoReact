@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import '../styles/Timer.css';
 
 const Timer = ( props ) => {
@@ -31,13 +31,22 @@ const Timer = ( props ) => {
     startTimer()
   }
 
+  useEffect(() => {
+  props.changeStateTimer()
+  if(props.stateTimer === true) {
+    alert("hhhh")
+  }
+});
+
   function startTimer() {
+
 
   timerRandomCountries()
   setDisabled(() => setDisabled(true))
 
   let newSetInterval = setInterval(() => {
       setSeconds(seconds = seconds-1);
+
       if(seconds < 10) {
         setSeconds(seconds = '0' + seconds);
       }

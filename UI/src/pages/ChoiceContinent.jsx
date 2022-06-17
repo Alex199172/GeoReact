@@ -4,10 +4,10 @@ import {useContext} from 'react';
 import '../styles/ChoiceContinent.css';
 
 const ChoiceContinent = () => {
-  const [mapWorldValue, setMapWorldValue] = useContext(MapContext);
-  const [mapAfricaValue, setMapAfricaValue] = useContext(MapContext);
-  const [mapAsiaValue, setMapAsiaValue] = useContext(MapContext);
-  const [mapLatinAmericaValue, setMapLatinAmericaValue] = useContext(MapContext);
+  const {mapWorldValue, setMapWorldValue} = useContext(MapContext);
+  const {mapAfricaValue, setMapAfricaValue} = useContext(MapContext);
+  const {mapAsiaValue, setMapAsiaValue} = useContext(MapContext);
+  const {mapLatinAmericaValue, setMapLatinAmericaValue} = useContext(MapContext);
 
   function locationMapWorld() {
     setMapWorldValue(() => setMapWorldValue(true))
@@ -16,7 +16,8 @@ const ChoiceContinent = () => {
 
   function locationMapAfrica() {
     setMapAfricaValue(() => setMapAfricaValue(true))
-    window.location.href = '/menu'
+    // window.location.href = '/menu'
+    console.log(mapAfricaValue)
   }
 
   function locationMapAsia() {

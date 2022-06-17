@@ -8,7 +8,7 @@ const Modal = ({active, setActive, children}) => {
     onClick={() => setActive(false)}
     >
       <div
-      className={active ? 'modal__content active' : 'modal__content'}
+      className={`text-center fs-4 ${active ? 'modal__content active' : 'modal__content'}`}
       onClick={e => e.stopPropagation()}
       >
         {children}

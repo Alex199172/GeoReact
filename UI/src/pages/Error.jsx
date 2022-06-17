@@ -1,14 +1,12 @@
 import React from 'react';
+import '../styles/Error.css';
 
 
 const Error = () => {
-
   return (
-    <div>
-     <div className="rg__fon d-flex justify-content-center align-items-center">
-        <div className="text-center fs-1 text-light">
-            Page not found
-           </div>
+    <div className='errorWindow'>
+      <div className='error__content text-center fs-4'>
+        Page not found
       </div>
     </div>
   );

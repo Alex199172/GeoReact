@@ -889,9 +889,8 @@ class mapController {
           "countryId": "LR"
         }
       ]
-      const countriesWorldString = countriesWorld.toString()
       try {
-          res.json(countriesWorldString)
+        return res.json(countriesWorld)
       }
       catch(event) {
         console.log(event)
@@ -1147,9 +1146,8 @@ class mapController {
     "countryId": "GA"
   }
 ]
-      const countriesAfricaString = countriesAfrica.toString()
       try {
-          res.json(countriesAfricaString)
+          res.json(countriesAfrice)
       }
       catch(event) {
         console.log(event)
@@ -1370,9 +1368,8 @@ class mapController {
     "countryId": "KG"
   }
 ]
-      const countriesAsiaString = countriesAsia.toString()
       try {
-          res.json(countriesAsiaString)
+          res.json(countriesAsia)
       }
       catch(event) {
         console.log(event)
@@ -1528,12 +1525,11 @@ class mapController {
     "countryId": "PE"
   }
 ]
-      const countriesLatinAmericaString = countriesLatinAmerica.toString()
       try {
-          res.json(countriesLatinAmericaString)
+          res.json(countriesLatinAmerica)
       }
       catch(event) {
-        console.log(event)
+          console.log(event)
       }
 
     }

@@ -2,12 +2,14 @@ import React from 'react';
 import {useState} from 'react';
 import '../styles/Traning.css';
 import Nav from '../components/Nav';
-import Modal from '../components/Modal';
+import ModalDescription from '../components/ModalDescription';
 
 
 const Traning = () => {
-  const [modalActive, setModalActive] = useState(false)
-  // const [contantModal, setContantModal] = useState('')
+  const [modalDescriptionActive, setModalDescriptionActive] = useState(false)
+  let [flagId, setFlagId] = useState('')
+  let [nameCountryValue, setNameCountryValue] = useState('')
+  let [descriptionCountry, setDescriptionCountry] = useState('')
   const countries = [
   // {
   //   "path": "M0.5,0.5 L1919.5,0.5 L1919.5,586.5 L0.5,586.5 Z",
@@ -895,19 +897,39 @@ const Traning = () => {
     "countryId": "LR"
   }
 ]
-  const contantModal = `{
-    <h1>{11111111}</h1>
-    <div>{flag}</div>
-    <div>fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>
-  }`
 
-
-  function hidenModal() {
-    setModalActive(() => setModalActive(false))
+  function choiceCountry(event) {
+    setNameCountryValue(() => {
+      nameCountryValue = event.target.getAttribute('arial')
+      return nameCountryValue
+      console.log(event.target.getAttribute('arial'))
+    })
+    getFlags(event)
+    choiceDescription()
+    showModalDescription()
   }
 
-  function showModal(event) {
-    setModalActive(() => setModalActive(true))
+  function getFlags(event) {
+    setFlagId(() => {
+      flagId = event.target.getAttribute('countryid').toLowerCase()
+      return flagId
+      console.log(event)
+    })
+  }
+
+  function choiceDescription() {
+    setDescriptionCountry(() => {
+      descriptionCountry = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisl tincidunt eget nullam non. Quis hendrerit dolor magna eget est lorem ipsum dolor sit. Volutpat odio facilisis mauris sit amet massa. Commodo odio aenean sed adipiscing diam donec adipiscing tristique. Mi eget mauris pharetra et. Non tellus orci ac auctor augue. Elit at imperdiet dui accumsan sit. Ornare arcu dui vivamus arcu felis. Egestas integer eget aliquet nibh praesent. In hac habitasse platea dictumst quisque sagittis purus. Pulvinar elementum integer enim neque volutpat ac.`
+      return descriptionCountry
+    })
+  }
+
+  function hidenModalDescription() {
+    setModalDescriptionActive(() => setModalDescriptionActive(false))
+  }
+
+  function showModalDescription() {
+    setModalDescriptionActive(() => setModalDescriptionActive(true))
   }
 
   return (
@@ -923,7 +945,7 @@ const Traning = () => {
                       {countries.map(country => (
                         <path cs="100,100"
                             className="amcharts-map-area"
-                            onClick={showModal}
+                            onClick={choiceCountry}
                             d={country.path}
                             fill="#818181"
                             transform="translate(0,-230)"
@@ -939,10 +961,12 @@ const Traning = () => {
                 </g>
             </g>
         </svg>
-      <Modal
-        active={modalActive}
-        setActive={setModalActive}
-        children={contantModal}
+      <ModalDescription
+        active={modalDescriptionActive}
+        setActive={setModalDescriptionActive}
+        flag={flagId}
+        nameCountry={nameCountryValue}
+        descriptionCountry={descriptionCountry}
         />
     </div>
   );
