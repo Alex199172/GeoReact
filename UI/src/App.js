@@ -7,6 +7,7 @@ import Entry from './pages/Entry';
 import ChoiceContinent from './pages/ChoiceContinent';
 import MenuChoice from './pages/MenuChoice';
 import Game from './pages/Game';
+import GameMultiplay from './pages/GameMultiplay';
 import Traning from './pages/Traning';
 import PlayersHistory from './pages/PlayersHistory';
 import PlayersItem from './pages/PlayersItem';
@@ -40,6 +41,7 @@ function App() {
             <Route path="/continents" element={<ChoiceContinent />} />
             <Route path="/menu" element={<MenuChoice />} />
             <Route path="/game" element={<Game />} />
+            <Route path="/game-multiplay" element={<GameMultiplay />} />
             <Route path="/traning" element={<Traning />} />
             <Route path="/history" element={<PlayersHistory />} />
             <Route path="/item" element={<PlayersItem />} />

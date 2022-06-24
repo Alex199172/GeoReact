@@ -1,7 +1,11 @@
 import React from 'react';
+import {useState} from 'react';
 import '../styles/Chat.css';
 
 const Chat = () => {
+  const [messages, setMessages] = useState([])
+  const [value, setValue] = useState('')
+
   return (
     <div>
       <button className="btn position-absolute top-0 end-0 m-3"

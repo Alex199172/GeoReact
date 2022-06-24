@@ -1,0 +1,57 @@
+.modalWindow {
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.5s;
+}
+
+.modalWindow.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal__content {
+  padding: 20px;
+  border-radius: 12px;
+  min-width: 30vw;
+  max-width: 35vw;
+  background-color: #fff;
+  transform: scale(0.5);
+  transition: 0.4s all;
+}
+
+.modal__content.active {
+  transform: scale(1)
+}
+
+.btn__invation {
+  border: none;
+  border-radius: 19px;
+  padding: 8px 19px;
+  background-color: #90755a;
+  min-width: 90px;
+}
+
+.btn__invation:hover {
+  opacity: 0.8;
+}
+
+.resolve {
+  background-color: teal;
+  border-radius: 20px;
+  padding: 7px 0px;
+}
+
+.reject {
+  background-color: crimson;
+  border-radius: 20px;
+  padding: 7px 0px;
+}

@@ -15,7 +15,7 @@ const generateAccessToken = (id, login) => {
 
 class authController {
     async registration(req, res) {
-      
+
       try {
       const errors = validationResult(req)
       if (!errors.isEmpty()) {
@@ -30,7 +30,7 @@ class authController {
         const hashPassword = await bcrypt.hash(req.body.password, 5);
         await knex('users').insert({
           login: req.body.login,
-          // email: req.body.email,
+          email: req.body.email,
           password: hashPassword,
           // role: 'user'
         })

@@ -1,4 +1,5 @@
 import React from 'react';
+import {useEffect} from 'react';
 import Nav from '../components/Nav';
 import '../styles/RatingSingle.css';
 import Search from '../components/Search';

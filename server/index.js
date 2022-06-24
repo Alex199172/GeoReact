@@ -15,7 +15,6 @@ app.use(express.json())
 app.use("/auth", authRouter)
 app.use("/data", dataRouter)
 app.use("/map", mapRouter)
-// app.use(express.static(__dirname + '/'))
 
 
 const start = () => {

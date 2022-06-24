@@ -14,7 +14,7 @@ const Entry = () => {
           password : passwordlValue
         }
 
-fetch('http://localhost:5000/auth/login', {
+fetch('/auth/login', {
           method: "POST",
           body:JSON.stringify(data),
           headers: {

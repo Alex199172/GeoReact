@@ -31,12 +31,12 @@ const Timer = ( props ) => {
     startTimer()
   }
 
-  useEffect(() => {
-  props.changeStateTimer()
-  if(props.stateTimer === true) {
-    alert("hhhh")
-  }
-});
+//   useEffect(() => {
+//   props.changeStateTimer()
+//   if(props.stateTimer === true) {
+//     alert("hhhh")
+//   }
+// });
 
   function startTimer() {
 

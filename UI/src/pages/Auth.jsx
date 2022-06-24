@@ -14,7 +14,7 @@ const Auth = () => {
            password : passwordValue
          }
 
- fetch('http://localhost:5000/auth/registration', {
+ fetch('/auth/registration', {
            method: "POST",
            body:JSON.stringify(data),
            headers: {

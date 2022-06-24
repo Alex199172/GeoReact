@@ -7,6 +7,10 @@ const MenuChoice = () => {
     return window.location.href = '/game'
   }
 
+  function locationGameMultiplay() {
+    return window.location.href = '/game-multiplay'
+  }
+
   function locationTraning() {
     return window.location.href = '/traning'
   }
@@ -28,7 +32,7 @@ const MenuChoice = () => {
          <button
              type="submit"
              className="btn__country mt-3 fs-3"
-             onClick = {locationGame}
+             onClick = {locationGameMultiplay}
              >
              Multiplayer game
           </button>
