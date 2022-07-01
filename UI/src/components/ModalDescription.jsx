@@ -1,11 +1,17 @@
 import React from 'react';
 import '../styles/Modal.css';
 
-const ModalDescription = ( {active, setActive, flag, nameCountry, descriptionCountry} ) => {
+const ModalDescription = ( {active, setActive, flag, nameCountry, descriptionCountry, hidenModalDescription} ) => {
+
+  function hiden() {
+     setActive(false)
+     hidenModalDescription()
+  }
+
   return (
     <div
     className={active ? 'modalWindow active' : 'modalWindow'}
-    onClick={() => setActive(false)}
+    onClick={hiden}
     >
       <div
       className={active ? 'modal__content active' : 'modal__content'}

@@ -3,7 +3,7 @@ import '../styles/PlayersOnline.css';
 import Nav from '../components/Nav';
 import Search from '../components/Search';
 
-const PlayersOnline = () => {
+const PlayersHistory = () => {
 
   return (
     <div>
@@ -40,4 +40,4 @@ const PlayersOnline = () => {
   );
 };
 
-export default PlayersOnline;
+export default PlayersHistory;

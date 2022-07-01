@@ -5,9 +5,9 @@ import Search from '../components/Search';
 import ModalInvitation from '../components/ModalInvitation';
 import {useState, useEffect} from 'react';
 
-const PlayersHistory = () => {
+const PlayersOnline = () => {
   const [modalInvitationActive, setModalInvitationActive] = useState(false)
-  const result = []
+  let [result, setResult] = useState([])
 
   function invationPlayer() {
     setModalInvitationActive(() => setModalInvitationActive(true))
@@ -22,6 +22,8 @@ const PlayersHistory = () => {
             }).then(rs => {
               rs.json().then(rs => {
                 console.log('result', rs)
+                setResult(rs)
+                console.log(result)
              })
             })
           });
@@ -37,7 +39,8 @@ const PlayersHistory = () => {
       <div className="rg__fon d-flex justify-content-center align-items-start pt-5">
           <div className="rg__form">
             <h1 className="mt-3 mb-4">Players Online</h1>
-            <Search />
+            <Search
+              result={result}/>
             <table className="table">
               <thead>
                 <tr className="">
@@ -70,4 +73,4 @@ const PlayersHistory = () => {
   );
 };
 
-export default PlayersHistory;
+export default PlayersOnline;

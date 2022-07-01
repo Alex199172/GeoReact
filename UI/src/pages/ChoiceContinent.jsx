@@ -1,4 +1,5 @@
 import React from 'react';
+import {useNavigate} from "react-router-dom";
 import {MapContext} from '../context';
 import {useContext} from 'react';
 import '../styles/ChoiceContinent.css';
@@ -8,26 +9,26 @@ const ChoiceContinent = () => {
   const {mapAfricaValue, setMapAfricaValue} = useContext(MapContext);
   const {mapAsiaValue, setMapAsiaValue} = useContext(MapContext);
   const {mapLatinAmericaValue, setMapLatinAmericaValue} = useContext(MapContext);
+  const navigate = useNavigate()
 
   function locationMapWorld() {
     setMapWorldValue(() => setMapWorldValue(true))
-    window.location.href = '/menu'
+    navigate('/menu');
   }
 
   function locationMapAfrica() {
     setMapAfricaValue(() => setMapAfricaValue(true))
-    // window.location.href = '/menu'
-    console.log(mapAfricaValue)
+    navigate('/menu');
   }
 
   function locationMapAsia() {
     setMapAsiaValue(() => setMapAsiaValue(true))
-    window.location.href = '/menu'
+    navigate('/menu');
   }
 
   function locationMapLatinAmerica() {
     setMapLatinAmericaValue(() => setMapLatinAmericaValue(true))
-    window.location.href = '/menu'
+    navigate('/menu');
   }
 
   return (

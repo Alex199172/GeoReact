@@ -1,9 +1,16 @@
 import React from 'react';
-import {useState} from 'react';
+import {useState, useMemo} from 'react';
 import '../styles/Search.css';
 
-const Search = () => {
-  const [searchValue, setSearchValue] = useState()
+const Search = ( props ) => {
+  const [searchValue, setSearchValue] = useState('')
+
+  useMemo(() => {
+    setSearchValue(() => setSearchValue(
+      props.filter(elem => elem.toLowerCase().includes(searchValue.toLowerCase()))
+    ))
+  }, [props])
+
 
   return (
     <div className="input-group mb-3 pe-3 px-3">
