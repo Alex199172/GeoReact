@@ -40,7 +40,7 @@ function changeDateUpdate() {
     <div>
       <Nav />
       <div className="rg__fon d-flex justify-content-center align-items-start pt-5">
-         <div className="rg__form">
+         <div className="rg__form mt-5">
          <h1 className="mt-3 mb-4">Players Item</h1>
            <Search />
        <table className="table">
@@ -67,7 +67,7 @@ function changeDateUpdate() {
              {statusAdmin === true
                ?
                <button className="btn__staus text-white"
-                onClick = {statusValue === true ? changeStatusBlock : changeStatusUnlock} 
+                onClick = {statusValue === true ? changeStatusBlock : changeStatusUnlock}
                 >
                  {statusValue === true ? 'unlock' : 'block'}
                </button>

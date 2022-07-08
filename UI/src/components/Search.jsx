@@ -5,11 +5,11 @@ import '../styles/Search.css';
 const Search = ( props ) => {
   const [searchValue, setSearchValue] = useState('')
 
-  useMemo(() => {
-    setSearchValue(() => setSearchValue(
-      props.filter(elem => elem.toLowerCase().includes(searchValue.toLowerCase()))
-    ))
-  }, [props])
+  // useMemo(() => {
+  //   setSearchValue(() => setSearchValue(
+  //     props.filter(elem => elem.toLowerCase().includes(searchValue.toLowerCase()))
+  //   ))
+  // }, [props])
 
 
   return (

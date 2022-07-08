@@ -4,6 +4,18 @@
  * @returns { Promise<void> }
  */
 exports.up = async(knex) => {
+  await knex.schema.createTable('role', (table) => {
+      table.increments('id');
+      table.string('user', 10);
+      table.string('admin', 10);
+      table.timestamps();
+  });
+  await knex.schema.createTable('status', (table) => {
+      table.increments('id');
+      table.string('active', 10);
+      table.string('blocked', 10);
+      table.timestamps();
+  });
   await knex.schema.createTable('users', (table) => {
     table
       .increments('id')
@@ -20,14 +32,23 @@ exports.up = async(knex) => {
       .unique()
       .comment('Почта');
     table
-      .string('password', 2048)
+      .string('password', 256)
       .notNullable()
       .comment('Пароль');
     table
-      .string('status', 64)
+      .integer('status_id', 64)
       .notNullable()
-      .defaultTo('active')
-      .comment('Статус');
+//      .defaultTo('active')
+      .comment('Статус')
+      .references('id')
+      .inTable('status');
+   table
+      .integer('role_id', 64)
+      .notNullable()
+//      .defaultTo('user')
+      .comment('Статус')
+      .references('id')
+      .inTable('role');
     table
       .timestamp('created_at', {useTz: false})
       .notNullable()
@@ -39,33 +60,21 @@ exports.up = async(knex) => {
       .comment('Дата обновления');
     table.comment('Пользователи');
   });
-  await knex.schema.createTable('games', (table) => {
+  await knex.schema.createTable('continents', (table) => {
     table
       .increments('id')
       .primary()
       .comment('Идентификатор');
     table
-      .integer('size')
-      .notNullable()
-      .comment('Размер поля');
+       .string('world', 250);
     table
-      .integer('winner')
-      .nullable()
-      .comment('Номер победившего игрока');
+        .string('asia', 250);
     table
-      .timestamp('created_at', {useTz: false})
-      .notNullable()
-      .defaultTo(knex.fn.now())
-      .comment('Дата создания');
+        .string('africa', 250);
     table
-      .timestamp('finished_at', {useTz: false})
-      .nullable()
-      .comment('Дата окончания');
+        .string('latinAmerica', 250);
     table
-      .timestamp('deleted_at', {useTz: false})
-      .nullable()
-      .comment('Дата удаления');
-    table.comment('Игры');
+        .timestamps();
   });
   await knex.schema.createTable('players', (table) => {
     table
@@ -79,19 +88,101 @@ exports.up = async(knex) => {
       .inTable('users')
       .comment('Идентификатор пользователя');
     table
-      .integer('game_id')
+       .integer('geme_id')
+       .notNullable()
+       .references('id')
+       .inTable('games')
+       .comment('Идентификатор игры');
+  });
+await knex.schema.createTable('singleGame', (table) => {
+    table
+      .increments('id')
+      .primary()
+      .comment('Идентификатор');
+    table
+      .integer('player_id')
       .notNullable()
       .references('id')
-      .inTable('games')
+      .inTable('players')
+      .comment('Идентификатор пользователя');
+    table
+      .timestamp('created_at', {useTz: false})
+      .notNullable()
+      .defaultTo(knex.fn.now())
+      .comment('Дата создания');
+    table
+      .integer('score', 10)
+      .notNullable()
+      .comment('Очки пользователя');
+    table
+      .integer('continents_id')
+      .notNullable()
+      .references('id')
+      .inTable('continents');
+  });
+  await knex.schema.createTable('multiplaerGame', (table) => {
+    table
+      .increments('id')
+      .primary()
+      .comment('Идентификатор');
+    table
+      .integer('player1_id')
+      .notNullable()
+      .references('id')
+      .inTable('players')
+      .comment('Идентификатор пользователя');
+    table
+      .integer('player2_id')
+      .notNullable()
+      .references('id')
+      .inTable('players')
+      .comment('Идентификатор пользователя');
+    table
+      .timestamp('created_at', {useTz: false})
+      .notNullable()
+      .defaultTo(knex.fn.now())
+      .comment('Дата создания');
+    table
+      .integer('score', 10)
+      .notNullable()
+      .comment('Очки пользователя');
+    table
+      .integer('winn', 10)
+      .notNullable()
+      .comment('Победитель');
+    table
+      .integer('lose', 10)
+      .notNullable()
+      .comment('Пороигравший');
+    table
+      .integer('continents_id')
+      .notNullable()
+      .references('id')
+      .inTable('continents');
+  });
+  await knex.schema.createTable('games', (table) => {
+    table
+      .increments('id')
+      .primary()
+      .comment('Идентификатор');
+    table
+      .integer('user_id')
+      .notNullable()
+      .references('id')
+      .inTable('users')
+      .comment('Идентификатор пользователя');
+    table
+      .integer('multiplaerGame_id')
+      .notNullable()
+      .references('id')
+      .inTable('multiplaerGame')
       .comment('Идентификатор игры');
     table
-      .integer('number')
+      .integer('singleGame_id')
       .notNullable()
-      .comment('Номер игрока по порядку');
-    table
-      .unique(['user_id', 'game_id'])
-      .unique(['game_id', 'number'])
-      .comment('Игроки');
+      .references('id')
+      .inTable('singelGame')
+      .comment('Идентификатор игры');
   });
 };
 
@@ -100,7 +191,12 @@ exports.up = async(knex) => {
  * @returns { Promise<void> }
  */
 exports.down = async(knex) => {
-  await knex.schema.dropTable('players');
-  await knex.schema.dropTable('games');
+  await knex.schema.dropTable('role');
+  await knex.schema.dropTable('status');
   await knex.schema.dropTable('users');
+  await knex.schema.dropTable('continents');
+  await knex.schema.dropTable('players');
+  await knex.schema.dropTable('singleGame');
+  await knex.schema.dropTable('multiplaerGame');
+  await knex.schema.dropTable('games');
 };

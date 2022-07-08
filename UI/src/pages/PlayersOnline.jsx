@@ -14,7 +14,7 @@ const PlayersOnline = () => {
   }
 
   useEffect(() => {
-      fetch('/data/RatingSingle', {
+      fetch('/data/PlayersOnline', {
                 method: "Get",
                 headers: {
                 'Content-Type': 'application/json'
@@ -29,6 +29,7 @@ const PlayersOnline = () => {
           });
           console.log(result)
 
+
   return (
     <div>
       <Nav />
@@ -37,7 +38,7 @@ const PlayersOnline = () => {
         setActive={setModalInvitationActive}
       />
       <div className="rg__fon d-flex justify-content-center align-items-start pt-5">
-          <div className="rg__form">
+          <div className="rg__form mt-5">
             <h1 className="mt-3 mb-4">Players Online</h1>
             <Search
               result={result}/>
@@ -54,8 +55,12 @@ const PlayersOnline = () => {
                 {result.map(elem => (
                   <tr>
                     <th className="text-center align-middle" scope="row">{elem.login}</th>
-                    <td className="text-center align-middle"></td>
-                    <td className="text-center align-middle"></td>
+                    <td className="text-center align-middle">
+                       <img className="checked" src="assets/img/checked.png" alt="chat" />
+                    </td>
+                    <td className="text-center align-middle">
+                       <img className="checked" src="assets/img/checked.png" alt="chat" />
+                    </td>
                     <td className="text-center align-middle">
                       <button className="btn__invite text-white"
                       onClick = {invationPlayer}

@@ -9,7 +9,7 @@ const Rating = () => {
     <div>
       <Nav />
       <div className="rg__fon d-flex justify-content-center align-items-start pt-5">
-          <div className="rg__form">
+          <div className="rg__form mt-5">
             <h1 className="mt-3 mb-4">Rating Multiplayer</h1>
             <Search />
               <table className="table">

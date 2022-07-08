@@ -1,18 +1,20 @@
 import React from 'react';
+import {useNavigate} from "react-router-dom";
 import '../styles/MenuChoice.css';
 
 const MenuChoice = () => {
+  const navigate = useNavigate()
 
   function locationGame() {
-    return window.location.href = '/game'
+    navigate('/game')
   }
 
   function locationGameMultiplay() {
-    return window.location.href = '/game-multiplay'
+    navigate('/game-multiplay')
   }
 
   function locationTraning() {
-    return window.location.href = '/traning'
+    navigate('/traning')
   }
 
   return (

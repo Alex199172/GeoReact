@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js websocket.js",
+    "start": "nodemon index.js",
     "migrate": "knex migrate:latest --knexfile db/knexfile.js",
     "seed": "knex seed:run --knexfile db/knexfile.js"
   },

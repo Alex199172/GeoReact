@@ -5,7 +5,7 @@ import '../styles/Nav.css';
 const Nav = () => {
   return (
     <div>
-      <div className="nav justify-content-between align-items-center">
+      <div className="nav justify-content-between align-items-center position-absolute w-100">
         <div className="nav__logo ms-5">
           <img className="nav__logo_img" src="assets/img/world.png" alt="exit" />
         </div>

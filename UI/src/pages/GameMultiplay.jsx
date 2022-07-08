@@ -37,18 +37,23 @@ const GameMultiplay = () => {
 
 
     useEffect(() => {
-        getMapWorld()
-      if(mapWorldValue === true) {
-        getMapWorld()
-      }
-      if(mapAfricaValue === true) {
-        getMapAfrica()
-      }
-      if(mapAsiaValue === true) {
-        getMapAsia()
-      }
-      if(mapLatinAmericaValue === true) {
-        getMapLatinAmerica()
+      setPreloaderActive(() => setPreloaderActive(true))
+      if(countries != []) {
+        setTimeout(() => {
+          setPreloaderActive(() => setPreloaderActive(false))
+        if(mapWorldValue === true) {
+          getMapWorld()
+        }
+        if(mapAfricaValue === true) {
+          getMapAfrica()
+        }
+        if(mapAsiaValue === true) {
+          getMapAsia()
+        }
+        if(mapLatinAmericaValue === true) {
+          getMapLatinAmerica()
+        }
+        }, 1300);
       }
     },[]);
 
@@ -61,22 +66,17 @@ const GameMultiplay = () => {
     setTimer(setInterval(() => {
         setSeconds(seconds = seconds-1);
 
-        if(seconds < 10) {
-          setSeconds(seconds = '0' + seconds);
-        }
-        if(seconds == 5) {
+        if(seconds === 5) {
           timerAudio()
           setColorTimer(() => setColorTimer(true))
         }
-        if(seconds <= 0) {
+        if(seconds === 0) {
          setMove(() => setMove(move++))
          setMoveScore(() => setMoveScore(moveScore++))
          setTimer(() => setTimer(clearInterval(timer)))
          showModal()
         }
       }, 1000))
-      console.log(scoreCount1)
-      console.log(scoreCount2)
     }
 
     function timerAudio() {
@@ -91,6 +91,8 @@ const GameMultiplay = () => {
       setSeconds(seconds = 20)
       if(scoreCount1 < 4 || scoreCount2 < 4) {
         startTimer()
+      }else{
+        finishGame()
       }
     }
 
@@ -105,7 +107,11 @@ const GameMultiplay = () => {
       setColorTimer(() => setColorTimer(false))
       changeRandomCountry()
       setSeconds(seconds = 20);
+      if(scoreCount1 < 4 || scoreCount2 < 4) {
       startTimer()
+    }else{
+      setTimer(() => setTimer(clearInterval(timer)))
+      }
     }
 
     function showModalDescription() {
@@ -195,6 +201,16 @@ const GameMultiplay = () => {
       setTrueColorAnswer(() => setTrueColorAnswer(false))
       incrementScoreCount()
      }, 1500);
+  }
+
+  function finishGame() {
+    setDisabled(() => setDisabled(false))
+    setTimer(() => setTimer(clearInterval(timer)))
+    setMove(() => setMove(move = 0))
+    setMoveScore(() => setMoveScore(moveScore = 0))
+    setScoreCount1(() => setScoreCount1(scoreCount1 = 0))
+    setScoreCount2(() => setScoreCount2(scoreCount2 = 0))
+    setRandomCountry(() => setRandomCountry(randomCountry = ''))
   }
 
   function falseAnswer() {
@@ -305,11 +321,12 @@ const GameMultiplay = () => {
               </g>
               <g>
                   <g transform="translate(505.3871808293184,207.24503371416955) scale(1)">
-                      <g transform="translate(0,0) scale(0.9017769606464239)"
-                      // {mapWorldValue == true ? translate(505.3871808293184,207.24503371416955) scale(1)}
-                      // {mapAfricaValue == true ? translate(-10.3871808293184,-100.24503371416955) scale(1.8)}
-                      // {mapAsiaValue == true ? translate(100.3871808293184,280.24503371416955) scale(1)}
-                      // {mapLatinAmericaValue == true ? translate(450.3871808293184,-250.24503371416955) scale(1.8)}
+                    <g transform={
+                                  `${mapWorldValue === true ? `translate(-30.3871808293184,40.24503371416955) scale(0.9)` : ''}
+                                   ${mapAfricaValue === true ? `translate(-480.3871808293184,-300.24503371416955) scale(1.8)` : ''}
+                                   ${mapAsiaValue === true ? `translate(-480.3871808293184,80.24503371416955) scale(1.2)` : ''}
+                                   ${mapLatinAmericaValue === true ? `translate(0.3871808293184,-400.24503371416955) scale(1.8)` : ''}
+                                   `}
                       >
                         {countries.map(country => (
                           <path cs="100,100"

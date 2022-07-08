@@ -33,18 +33,23 @@ const Game = () => {
 
 
   useEffect(() => {
-    getMapWorld()
-    if(mapWorldValue === true) {
-      getMapWorld()
-    }
-    if(mapAfricaValue === true) {
-      getMapAfrica()
-    }
-    if(mapAsiaValue === true) {
-      getMapAsia()
-    }
-    if(mapLatinAmericaValue === true) {
-      getMapLatinAmerica()
+    setPreloaderActive(() => setPreloaderActive(true))
+    if(countries != []) {
+      setTimeout(() => {
+        setPreloaderActive(() => setPreloaderActive(false))
+      if(mapWorldValue === true) {
+        getMapWorld()
+      }
+      if(mapAfricaValue === true) {
+        getMapAfrica()
+      }
+      if(mapAsiaValue === true) {
+        getMapAsia()
+      }
+      if(mapLatinAmericaValue === true) {
+        getMapLatinAmerica()
+      }
+      }, 1300);
     }
   },[]);
 
@@ -57,9 +62,6 @@ const Game = () => {
   setTimer(setInterval(() => {
       setSeconds(seconds = seconds-1);
 
-      if(seconds < 10) {
-        setSeconds(seconds = '0' + seconds);
-      }
       if(seconds == 5) {
         timerAudio()
         setColorTimer(() => setColorTimer(true))
@@ -257,51 +259,54 @@ const Game = () => {
   return (
     <div>
       <Nav />
-      <Timer
-        startTimer={startTimer}
-        seconds={seconds}
-        disabled={disabled}
-        colorTimer={colorTimer}
-        />
-      <div className="position-absolute top-50 start-50 text-light name__country">
-        {randomCountry}
+      <div className="wrap">
+        <Timer
+          startTimer={startTimer}
+          seconds={seconds}
+          disabled={disabled}
+          colorTimer={colorTimer}
+          />
+        <div className="position-absolute top-50 start-50 text-light name__country">
+          {randomCountry}
+        </div>
+        <div className="position-absolute top-50 start-0 translate-middle-y score fs-2 ps-3 pe-4">
+          {scoreCount}
+        </div>
+        <svg version="1.1" viewBox="500 0 950 650" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width="100%" height="100vh" xmlSpace="preserve">
+              <g>
+                  <path cs="100,100" d="M0.5,0.5 L1919.5,0.5 L1919.5,586.5 L0.5,586.5 Z" fill="#505050" fillOpacity="1" strokeWidth="1" strokeOpacity="1" className="amcharts-bg"></path>
+              </g>
+              <g>
+                  <g transform="translate(505.3871808293184,207.24503371416955) scale(1)">
+                  <g transform={
+                                `${mapWorldValue === true ? `translate(-30.3871808293184,10.24503371416955) scale(0.9)` : ''}
+                                 ${mapAfricaValue === true ? `translate(-480.3871808293184,-300.24503371416955) scale(1.8)` : ''}
+                                 ${mapAsiaValue === true ? `translate(-480.3871808293184,80.24503371416955) scale(1.2)` : ''}
+                                 ${mapLatinAmericaValue === true ? `translate(0.3871808293184,-400.24503371416955) scale(1.8)` : ''}
+                                 `}
+                  >
+                        {countries.map(country => (
+                          <path cs="100,100"
+                              className={`amcharts-map-area ${trueColorAnswer === true ? 'true' : ''} ${falseColorAnswer === true ? 'false' : ''} `}
+                              onClick={choiceCountry}
+                              d={country.path}
+                              fill="#818181"
+                              transform="translate(0,-230)"
+                              stroke="#505050" role="menuitem"
+                              fillOpacity="1"
+                              strokeWidth="1.1089216553982113"
+                              strokeOpacity="1"
+                              arial={country.label}
+                              countryid={country.countryId}
+                              key={country.countryId}
+                              >
+                          </path>
+                        ))}
+                      </g>
+                  </g>
+              </g>
+          </svg>
       </div>
-      <div className="position-absolute top-50 start-0 translate-middle-y score fs-2 ps-3 pe-4">
-        {scoreCount}
-      </div>
-      <svg version="1.1" viewBox="500 0 950 650" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width="100%" height="100vh" xmlSpace="preserve">
-            <g>
-                <path cs="100,100" d="M0.5,0.5 L1919.5,0.5 L1919.5,586.5 L0.5,586.5 Z" fill="#505050" fillOpacity="1" strokeWidth="1" strokeOpacity="1" className="amcharts-bg"></path>
-            </g>
-            <g>
-                <g transform="translate(505.3871808293184,207.24503371416955) scale(1)">
-                    <g transform="translate(0,0) scale(0.9017769606464239)"
-                    // {mapWorldValue == true ? translate(505.3871808293184,207.24503371416955) scale(1)}
-                    // {mapAfricaValue == true ? translate(-10.3871808293184,-100.24503371416955) scale(1.8)}
-                    // {mapAsiaValue == true ? translate(100.3871808293184,280.24503371416955) scale(1)}
-                    // {mapLatinAmericaValue == true ? translate(450.3871808293184,-250.24503371416955) scale(1.8)}
-                    >
-                      {countries.map(country => (
-                        <path cs="100,100"
-                            className={`amcharts-map-area ${trueColorAnswer === true ? 'true' : ''} ${falseColorAnswer === true ? 'false' : ''} `}
-                            onClick={choiceCountry}
-                            d={country.path}
-                            fill="#818181"
-                            transform="translate(0,-230)"
-                            stroke="#505050" role="menuitem"
-                            fillOpacity="1"
-                            strokeWidth="1.1089216553982113"
-                            strokeOpacity="1"
-                            arial={country.label}
-                            countryid={country.countryId}
-                            key={country.countryId}
-                            >
-                        </path>
-                      ))}
-                    </g>
-                </g>
-            </g>
-        </svg>
       <Modal
         active={modalActive}
         setActive={setModalActive}

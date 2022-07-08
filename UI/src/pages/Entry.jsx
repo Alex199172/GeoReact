@@ -1,11 +1,12 @@
 import React from 'react';
 import {useState} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import '../styles/Entry.css';
 
 const Entry = () => {
   const [loginValue, setLoginValue] = useState('')
   const [passwordlValue, setPasswordValue] = useState('')
+  const navigate = useNavigate()
 
 
  function getData() {
@@ -26,7 +27,7 @@ fetch('/auth/login', {
          localStorage.setItem('token', rs.token)
          localStorage.setItem('id', rs.id)
          localStorage.setItem('login', rs.login)
-         window.location.href = '/game'
+         navigate('/game')
        })
      })
  }

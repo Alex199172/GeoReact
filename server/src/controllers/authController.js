@@ -32,7 +32,7 @@ class authController {
           login: req.body.login,
           email: req.body.email,
           password: hashPassword,
-          // role: 'user'
+          role: 'user'
         })
         return res.json({message: 'Registration completed successfully'})
       } catch(e) {

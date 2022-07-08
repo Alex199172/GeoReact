@@ -1,11 +1,13 @@
 import React from 'react';
 import {useState} from 'react';
+import {useNavigate} from "react-router-dom";
 import '../styles/Auth.css';
 
 const Auth = () => {
   const [loginValue, setLoginValue] = useState('')
   const [emailValue, setEmailValue] = useState('')
   const [passwordValue, setPasswordValue] = useState('')
+  const navigate = useNavigate()
 
   function getData() {
     let data = {
@@ -23,7 +25,7 @@ const Auth = () => {
       }).then(rs => {
         rs.json().then(rs => {
           console.log('result', rs)
-          window.location.href = '/game'
+          navigate('/game')
         })
       })
   }

@@ -12,13 +12,13 @@ class dataController {
     }
 
     async PlayersOnline(req, res) {
-
-    }
-
-    async RatingSingle(req, res) {
       let logins = await knex.select('login')
         .from('users')
         res.json(logins)
+    }
+
+    async RatingSingle(req, res) {
+
     }
 
 

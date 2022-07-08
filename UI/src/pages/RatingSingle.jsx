@@ -1,16 +1,33 @@
 import React from 'react';
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import Nav from '../components/Nav';
 import '../styles/RatingSingle.css';
 import Search from '../components/Search';
 
 const Rating = () => {
+  let [result, setResult] = useState([])
+
+  useEffect(() => {
+      fetch('/data/RatingSingle', {
+                method: "Get",
+                headers: {
+                'Content-Type': 'application/json'
+                },
+            }).then(rs => {
+              rs.json().then(rs => {
+                console.log('result', rs)
+                setResult(rs)
+                console.log(result)
+             })
+            })
+          });
+          console.log(result)
 
   return (
     <div>
       <Nav />
       <div className="rg__fon d-flex justify-content-center align-items-start pt-5">
-          <div className="rg__form">
+          <div className="rg__form mt-5">
             <h1 className="mt-3 mb-4">Rating Single</h1>
             <Search />
               <table className="table">
@@ -24,13 +41,15 @@ const Rating = () => {
                   </tr>
                 </thead>
                 <tbody>
+                  {result.map(elem => (
                   <tr>
-                    <th className="text-center align-middle" scope="row">Alex</th>
+                    <th className="text-center align-middle" scope="row">{elem.login}</th>
                     <td className="text-center align-middle">5</td>
                     <td className="text-center align-middle">3</td>
                     <td className="text-center align-middle">12</td>
                     <td className="text-center align-middle">3</td>
                   </tr>
+                    ))}
                 </tbody>
               </table>
           </div>

@@ -18,7 +18,7 @@ const Timer = ( props ) => {
             </div>
           <div className="seconds fs-2">
             <span>
-              {props.seconds}
+              {props.seconds < 10 ? "0" + props.seconds : props.seconds}
             </span>
             </div>
       </div>
