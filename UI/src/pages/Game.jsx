@@ -10,26 +10,28 @@ import Preloader from '../components/Preloader';
 
 
 const Game = () => {
-  let [randomCountry, setRandomCountry] = useState('')
-  let [scoreCount, setScoreCount] = useState(0)
-  let [contentModal, setContentModal] = useState('')
-  let [flagId, setFlagId] = useState('')
-  let [nameCountryValue, setNameCountryValue] = useState('')
-  let [descriptionCountry, setDescriptionCountry] = useState('')
+  let [randomCountry, setRandomCountry] = useState('');
+  let [scoreCount, setScoreCount] = useState(0);
+  let [contentModal, setContentModal] = useState('');
+  let [flagId, setFlagId] = useState('');
+  let [nameCountryValue, setNameCountryValue] = useState('');
+  let [descriptionCountry, setDescriptionCountry] = useState('');
   let [seconds, setSeconds] = useState(20);
-  let [timer, setTimer] = useState('');
+  let [timer, setTimer] = useState({timer:null});
   let [countries, setCountries] = useState([]);
+  let [bdMap, setBDMap] = useState('');
   const [disabled, setDisabled] = useState(false);
   const [colorTimer, setColorTimer] = useState(false);
-  const [modalDescriptionActive, setModalDescriptionActive] = useState(false)
-  const [modalActive, setModalActive] = useState(false)
-  const [preloaderActive, setPreloaderActive] = useState(false)
-  const [trueColorAnswer, setTrueColorAnswer] = useState(false)
-  const [falseColorAnswer, setFalseColorAnswer] = useState(false)
+  const [modalDescriptionActive, setModalDescriptionActive] = useState(false);
+  const [modalActive, setModalActive] = useState(false);
+  const [preloaderActive, setPreloaderActive] = useState(false);
+  const [trueColorAnswer, setTrueColorAnswer] = useState(false);
+  const [falseColorAnswer, setFalseColorAnswer] = useState(false);
   const {mapWorldValue, setMapWorldValue} = useContext(MapContext);
   const {mapAfricaValue, setMapAfricaValue} = useContext(MapContext);
   const {mapAsiaValue, setMapAsiaValue} = useContext(MapContext);
   const {mapLatinAmericaValue, setMapLatinAmericaValue} = useContext(MapContext);
+
 
 
   useEffect(() => {
@@ -37,16 +39,28 @@ const Game = () => {
     if(countries != []) {
       setTimeout(() => {
         setPreloaderActive(() => setPreloaderActive(false))
-      if(mapWorldValue === true) {
+      // if(mapWorldValue === true) {
+      //   getMapWorld()
+      // }
+      // if(mapAfricaValue === true) {
+      //   getMapAfrica()
+      // }
+      // if(mapAsiaValue === true) {
+      //   getMapAsia()
+      // }
+      // if(mapLatinAmericaValue === true) {
+      //   getMapLatinAmerica()
+      // }
+      if(localStorage.getItem('mapWorldValue') == 'true') {
         getMapWorld()
       }
-      if(mapAfricaValue === true) {
+      if(localStorage.getItem('mapAfricaValue') == 'true') {
         getMapAfrica()
       }
-      if(mapAsiaValue === true) {
+      if(localStorage.getItem('mapAsiaValue') == 'true') {
         getMapAsia()
       }
-      if(mapLatinAmericaValue === true) {
+      if(localStorage.getItem('mapLatinAmericaValue') == 'true') {
         getMapLatinAmerica()
       }
       }, 1300);
@@ -59,20 +73,25 @@ const Game = () => {
   changeRandomCountry()
   setDisabled(() => setDisabled(true))
 
-  setTimer(setInterval(() => {
+  setTimer((prev) => {
+    prev.timer = setInterval(() => {
       setSeconds(seconds = seconds-1);
 
-      if(seconds == 5) {
+      if(seconds === 5) {
         timerAudio()
         setColorTimer(() => setColorTimer(true))
       }
-      if(seconds <= 0) {
-       setTimer(() => setTimer(clearInterval(timer)))
+      if(seconds === 0) {
+       setTimer((prev) => {
+       prev.timer = clearInterval(prev.timer);
+       return prev;
+       })
        showModal()
       }
-    }, 1000))
-
-  }
+    }, 1000)
+    return prev;
+  })
+}
 
   function timerAudio() {
     let timeAudio = new Audio('assets/audio/time.mp3');
@@ -90,8 +109,45 @@ const Game = () => {
 
   function showModal() {
     setModalActive(() => setModalActive(true))
-    setTimer(() => setTimer(clearInterval(timer)))
+    setTimer((prev) => {
+    prev.timer = clearInterval(prev.timer);
+    return prev;
+    })
     getResult()
+    getData()
+  }
+
+  function getData() {
+    if(localStorage.getItem('mapWorldValue') == 'true') {
+      setBDMap(bdMap = 1)
+    }
+    if(localStorage.getItem('mapAfricaValue') == 'true') {
+      setBDMap(bdMap = 2)
+    }
+    if(localStorage.getItem('mapAsiaValue') == 'true') {
+      setBDMap(bdMap = 3)
+    }
+    if(localStorage.getItem('mapLatinAmericaValue') == 'true') {
+      setBDMap(bdMap = 4)
+    }
+    console.log(bdMap)
+    let data = {
+           user_id : localStorage.getItem('id'),
+           scoreCount : scoreCount,
+           map : bdMap
+         }
+         console.log(data)
+     fetch('/data/RatingSingleBD', {
+           method: "POST",
+           body:JSON.stringify(data),
+           headers: {
+          'Content-Type': 'application/json'
+          },
+      }).then(rs => {
+        rs.json().then(rs => {
+          console.log('result', rs)
+        })
+      })
   }
 
   function hidenModalDescription() {
@@ -102,9 +158,12 @@ const Game = () => {
     startTimer()
   }
 
-  function showModalDescription() {
+  function showModalDescription(prev) {
     setModalDescriptionActive(() => setModalDescriptionActive(true))
-    setTimer(() => setTimer(clearInterval(timer)))
+    setTimer((prev) => {
+    prev.timer = clearInterval(prev.timer);
+    return prev;
+    })
   }
 
   function choiceDescription() {
@@ -189,6 +248,7 @@ const Game = () => {
 
   function incrementScoreCount() {
     setScoreCount(() => setScoreCount(scoreCount++))
+    console.log(scoreCount++)
   }
 
   function getFlags(event) {
@@ -279,10 +339,10 @@ const Game = () => {
               <g>
                   <g transform="translate(505.3871808293184,207.24503371416955) scale(1)">
                   <g transform={
-                                `${mapWorldValue === true ? `translate(-30.3871808293184,10.24503371416955) scale(0.9)` : ''}
-                                 ${mapAfricaValue === true ? `translate(-480.3871808293184,-300.24503371416955) scale(1.8)` : ''}
-                                 ${mapAsiaValue === true ? `translate(-480.3871808293184,80.24503371416955) scale(1.2)` : ''}
-                                 ${mapLatinAmericaValue === true ? `translate(0.3871808293184,-400.24503371416955) scale(1.8)` : ''}
+                                `${(localStorage.getItem('mapWorldValue') == 'true') ? `translate(-30.3871808293184,40.24503371416955) scale(0.9)` : ''}
+                                 ${(localStorage.getItem('mapAfricaValue') == 'true') ? `translate(-480.3871808293184,-300.24503371416955) scale(1.8)` : ''}
+                                 ${(localStorage.getItem('mapAsiaValue') == 'true') ? `translate(-480.3871808293184,80.24503371416955) scale(1.2)` : ''}
+                                 ${(localStorage.getItem('mapLatinAmericaValue') == 'true') ? `translate(0.3871808293184,-400.24503371416955) scale(1.8)` : ''}
                                  `}
                   >
                         {countries.map(country => (

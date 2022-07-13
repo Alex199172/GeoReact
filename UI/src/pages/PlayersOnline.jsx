@@ -26,7 +26,7 @@ const PlayersOnline = () => {
                 console.log(result)
              })
             })
-          });
+          },[]);
           console.log(result)
 
 

@@ -25,7 +25,7 @@ const Auth = () => {
       }).then(rs => {
         rs.json().then(rs => {
           console.log('result', rs)
-          navigate('/game')
+          navigate('/menu-continents')
         })
       })
   }

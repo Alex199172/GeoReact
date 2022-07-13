@@ -1,15 +1,15 @@
 import React from 'react';
-import {useState, useMemo} from 'react';
+import {useState, useEffect} from 'react';
 import '../styles/Search.css';
 
-const Search = ( props ) => {
+const Search = ( {result} ) => {
   const [searchValue, setSearchValue] = useState('')
 
-  // useMemo(() => {
+  // useEffect(() => {
   //   setSearchValue(() => setSearchValue(
-  //     props.filter(elem => elem.toLowerCase().includes(searchValue.toLowerCase()))
+  //     result.filter(elem => elem.toLowerCase().includes(searchValue.toLowerCase()))
   //   ))
-  // }, [props])
+  // }, [result])
 
 
   return (

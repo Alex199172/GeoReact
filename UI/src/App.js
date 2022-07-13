@@ -38,7 +38,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Entry />} />
             <Route path="/registration" element={<Auth />} />
-            <Route path="/continents" element={<ChoiceContinent />} />
+            <Route path="/menu-continents" element={<ChoiceContinent />} />
             <Route path="/menu" element={<MenuChoice />} />
             <Route path="/game" element={<Game />} />
             <Route path="/game-multiplay" element={<GameMultiplay />} />

@@ -10,7 +10,7 @@ const Nav = () => {
           <img className="nav__logo_img" src="assets/img/world.png" alt="exit" />
         </div>
         <div className="nav__menu d-flex">
-          <Link to="/menu" className="nav__menu-link">
+          <Link to="/menu-continents" className="nav__menu-link">
             <div className="nav__menu-item me-3 px-3">
               Menu
             </div>
@@ -30,11 +30,11 @@ const Nav = () => {
               Players online
             </div>
           </Link>
-          <Link to="/history" className="nav__menu-link">
+          {/*<Link to="/history" className="nav__menu-link">
             <div className="nav__menu-item me-3 px-3">
               Players history
             </div>
-          </Link>
+          </Link>*/}
           <Link to="/item" className="nav__menu-link">
             <div className="nav__menu-item me-3 px-3">
               Players item

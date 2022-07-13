@@ -3,25 +3,33 @@ import {useEffect, useState} from 'react';
 import Nav from '../components/Nav';
 import '../styles/RatingSingle.css';
 import Search from '../components/Search';
+import Preloader from '../components/Preloader';
 
 const Rating = () => {
   let [result, setResult] = useState([])
+  const [preloaderActive, setPreloaderActive] = useState(false);
 
   useEffect(() => {
-      fetch('/data/RatingSingle', {
-                method: "Get",
-                headers: {
-                'Content-Type': 'application/json'
-                },
-            }).then(rs => {
-              rs.json().then(rs => {
-                console.log('result', rs)
-                setResult(rs)
-                console.log(result)
-             })
-            })
-          });
-          console.log(result)
+    setPreloaderActive(() => setPreloaderActive(true))
+    if(result != []) {
+      setTimeout(() => {
+        setPreloaderActive(() => setPreloaderActive(false))
+        fetch('/data/RatingSingle', {
+                  method: "Get",
+                  headers: {
+                  'Content-Type': 'application/json'
+                  },
+              }).then(rs => {
+                rs.json().then(rs => {
+                  console.log('result', rs)
+                  setResult(rs)
+                  console.log(result)
+               })
+              })
+      }, 1300);
+    }
+  },[]);
+
 
   return (
     <div>
@@ -29,7 +37,9 @@ const Rating = () => {
       <div className="rg__fon d-flex justify-content-center align-items-start pt-5">
           <div className="rg__form mt-5">
             <h1 className="mt-3 mb-4">Rating Single</h1>
-            <Search />
+            <Search
+              result={result}
+              />
               <table className="table">
                 <thead>
                   <tr className="">
@@ -44,16 +54,20 @@ const Rating = () => {
                   {result.map(elem => (
                   <tr>
                     <th className="text-center align-middle" scope="row">{elem.login}</th>
-                    <td className="text-center align-middle">5</td>
-                    <td className="text-center align-middle">3</td>
-                    <td className="text-center align-middle">12</td>
-                    <td className="text-center align-middle">3</td>
+                    <td className="text-center align-middle">0</td>
+                    <td className="text-center align-middle">0</td>
+                    <td className="text-center align-middle">0</td>
+                    <td className="text-center align-middle">0</td>
                   </tr>
                     ))}
                 </tbody>
               </table>
           </div>
       </div>
+      <Preloader
+        active={preloaderActive}
+        setActive={setPreloaderActive}
+      />
     </div>
   );
 };

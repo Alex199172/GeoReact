@@ -32,7 +32,8 @@ class authController {
           login: req.body.login,
           email: req.body.email,
           password: hashPassword,
-          role: 'user'
+          status_id: 1,
+          role_id: 2,
         })
         return res.json({message: 'Registration completed successfully'})
       } catch(e) {
@@ -48,7 +49,7 @@ class authController {
         if (!errors.isEmpty()) {
           return res.status(400).json({message: 'Authorization error'})
         }
-          const {login, password} = req.body
+          const {login, password, role_id} = req.body
           const row = await knex.select('*').where('login','=', req.body.login).from('users')
 
           if(row.length <= 0) {
@@ -60,7 +61,7 @@ class authController {
             return res.status(400).json({message: 'Incorrect password'})
         }
         const token = generateAccessToken(row[0]._id, row[0].login)
-        return res.json({token, 'id':row[0].id, 'login':row[0].login})
+        return res.json({token, 'id':row[0].id, 'login':row[0].login,'role_id':row[0].role_id})
           } catch(e) {
           console.log(e)
           res.status(400).json({message: 'Login error'})

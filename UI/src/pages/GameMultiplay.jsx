@@ -19,7 +19,7 @@ const GameMultiplay = () => {
   let [nameCountryValue, setNameCountryValue] = useState('')
   let [descriptionCountry, setDescriptionCountry] = useState('')
   let [seconds, setSeconds] = useState(20);
-  let [timer, setTimer] = useState('');
+  let [timer, setTimer] = useState({timer:null});
   let [moveScore, setMoveScore] = useState(0);
   let [move, setMove] = useState(0);
   const [disabled, setDisabled] = useState(false);
@@ -41,16 +41,28 @@ const GameMultiplay = () => {
       if(countries != []) {
         setTimeout(() => {
           setPreloaderActive(() => setPreloaderActive(false))
-        if(mapWorldValue === true) {
+        // if(mapWorldValue === true) {
+        //   getMapWorld()
+        // }
+        // if(mapAfricaValue === true) {
+        //   getMapAfrica()
+        // }
+        // if(mapAsiaValue === true) {
+        //   getMapAsia()
+        // }
+        // if(mapLatinAmericaValue === true) {
+        //   getMapLatinAmerica()
+        // }
+        if(localStorage.getItem('mapWorldValue') == 'true') {
           getMapWorld()
         }
-        if(mapAfricaValue === true) {
+        if(localStorage.getItem('mapAfricaValue') == 'true') {
           getMapAfrica()
         }
-        if(mapAsiaValue === true) {
+        if(localStorage.getItem('mapAsiaValue') == 'true') {
           getMapAsia()
         }
-        if(mapLatinAmericaValue === true) {
+        if(localStorage.getItem('mapLatinAmericaValue') == 'true') {
           getMapLatinAmerica()
         }
         }, 1300);
@@ -63,7 +75,8 @@ const GameMultiplay = () => {
     changeRandomCountry()
     setDisabled(() => setDisabled(true))
 
-    setTimer(setInterval(() => {
+    setTimer((prev) => {
+      prev.timer = setInterval(() => {
         setSeconds(seconds = seconds-1);
 
         if(seconds === 5) {
@@ -73,11 +86,16 @@ const GameMultiplay = () => {
         if(seconds === 0) {
          setMove(() => setMove(move++))
          setMoveScore(() => setMoveScore(moveScore++))
-         setTimer(() => setTimer(clearInterval(timer)))
+         setTimer((prev) => {
+         prev.timer = clearInterval(prev.timer);
+         return prev;
+         })
          showModal()
         }
-      }, 1000))
-    }
+      }, 1000)
+      return prev;
+    })
+  }
 
     function timerAudio() {
       let timeAudio = new Audio('assets/audio/time.mp3');
@@ -98,11 +116,14 @@ const GameMultiplay = () => {
 
     function showModal() {
       setModalActive(() => setModalActive(true))
-      setTimer(() => setTimer(clearInterval(timer)))
+      setTimer((prev) => {
+      prev.timer = clearInterval(prev.timer);
+      return prev;
+      })
       getResult()
     }
 
-    function hidenModalDescription() {
+    function hidenModalDescription(prev) {
       setModalDescriptionActive(() => setModalDescriptionActive(false))
       setColorTimer(() => setColorTimer(false))
       changeRandomCountry()
@@ -110,13 +131,19 @@ const GameMultiplay = () => {
       if(scoreCount1 < 4 || scoreCount2 < 4) {
       startTimer()
     }else{
-      setTimer(() => setTimer(clearInterval(timer)))
+      setTimer((prev) => {
+      prev.timer = clearInterval(prev.timer);
+      return prev;
+      })
       }
     }
 
     function showModalDescription() {
       setModalDescriptionActive(() => setModalDescriptionActive(true))
-      setTimer(() => setTimer(clearInterval(timer)))
+      setTimer((prev) => {
+      prev.timer = clearInterval(prev.timer);
+      return prev;
+      })
     }
 
     function choiceDescription() {
@@ -322,10 +349,10 @@ const GameMultiplay = () => {
               <g>
                   <g transform="translate(505.3871808293184,207.24503371416955) scale(1)">
                     <g transform={
-                                  `${mapWorldValue === true ? `translate(-30.3871808293184,40.24503371416955) scale(0.9)` : ''}
-                                   ${mapAfricaValue === true ? `translate(-480.3871808293184,-300.24503371416955) scale(1.8)` : ''}
-                                   ${mapAsiaValue === true ? `translate(-480.3871808293184,80.24503371416955) scale(1.2)` : ''}
-                                   ${mapLatinAmericaValue === true ? `translate(0.3871808293184,-400.24503371416955) scale(1.8)` : ''}
+                                  `${(localStorage.getItem('mapWorldValue') == 'true') ? `translate(-30.3871808293184,40.24503371416955) scale(0.9)` : ''}
+                                   ${(localStorage.getItem('mapAfricaValue') == 'true') ? `translate(-480.3871808293184,-300.24503371416955) scale(1.8)` : ''}
+                                   ${(localStorage.getItem('mapAsiaValue') == 'true') ? `translate(-480.3871808293184,80.24503371416955) scale(1.2)` : ''}
+                                   ${(localStorage.getItem('mapLatinAmericaValue') == 'true') ? `translate(0.3871808293184,-400.24503371416955) scale(1.8)` : ''}
                                    `}
                       >
                         {countries.map(country => (

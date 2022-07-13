@@ -27,7 +27,8 @@ fetch('/auth/login', {
          localStorage.setItem('token', rs.token)
          localStorage.setItem('id', rs.id)
          localStorage.setItem('login', rs.login)
-         navigate('/game')
+         localStorage.setItem('role_id', rs.role_id)
+         navigate('/menu-continents')
        })
      })
  }
@@ -36,9 +37,6 @@ fetch('/auth/login', {
   return (
     <div>
      <div className="rg__fon d-flex justify-content-center align-items-center">
-      <div className="position-absolute top-0 end-0">
-        Russ/Eng
-      </div>
         <form className="form__entrie">
           <div className="entry__form">
             <div className="text center">

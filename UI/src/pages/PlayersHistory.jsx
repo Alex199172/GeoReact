@@ -1,9 +1,12 @@
 import React from 'react';
 import '../styles/PlayersOnline.css';
+import {useState, useEffect} from 'react';
 import Nav from '../components/Nav';
 import Search from '../components/Search';
 
 const PlayersHistory = () => {
+    const [preloaderActive, setPreloaderActive] = useState(false);
+    
 
   return (
     <div>
