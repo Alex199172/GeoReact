@@ -15,23 +15,27 @@ const Entry = () => {
           password : passwordlValue
         }
 
-fetch('/auth/login', {
-          method: "POST",
-          body:JSON.stringify(data),
-          headers: {
-         'Content-Type': 'application/json'
-         },
-     }).then(rs => {
-       rs.json().then(rs => {
-         console.log('result', rs)
-         localStorage.setItem('token', rs.token)
-         localStorage.setItem('id', rs.id)
-         localStorage.setItem('login', rs.login)
-         localStorage.setItem('role_id', rs.role_id)
-         navigate('/menu-continents')
-       })
-     })
- }
+        fetch('/auth/login', {
+                  method: "POST",
+                  body:JSON.stringify(data),
+                  headers: {
+                 'Content-Type': 'application/json'
+                 },
+             }).then(rs => {
+             	console.log('rs', rs);
+             	console.log('rs_status', rs.status);
+               rs.json().then(rs => {
+                 console.log('result', rs)
+                 if(rs.status == 200) {
+                   localStorage.setItem('token', rs.token)
+                   localStorage.setItem('id', rs.id)
+                   localStorage.setItem('login', rs.login)
+                   localStorage.setItem('role_id', rs.role_id)
+                   navigate('/menu-continents')
+                 }
+               })
+             })
+         }
 
 
   return (

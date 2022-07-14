@@ -9,27 +9,31 @@ const http = require('http')
 const server = http.createServer(app)
 const {Server} = require('socket.io')
 const io = new Server(server)
-const rooms = new Map()
 
-app.get('/rooms', (req,res) => {
-  res.json(rooms)
-})
 
-app.post('/rooms', (req,res) => {
-  res.send
-  rooms.set(
-    roomId,
-    newMap([
-      ['users', new Map()],
-      ['messages', []],
-    ])
-  )
-    res.send()
-})
+
 
 io.on('connection', (socket) => {
   console.log('socket connected', socket.id)
+  io.on('message', function (message) {
+      message = JSON.parse(message)
+      switch (message.event) {
+          case 'message':
+              broadcastMessage(message)
+              break;
+          case 'connection':
+              broadcastMessage(message)
+              break;
+      }
+  })
 })
+
+
+function broadcastMessage(message, id) {
+    wss.clients.forEach(client => {
+        client.send(JSON.stringify(message))
+    })
+}
 
 
 const PORT = process.env.PORT || 5000

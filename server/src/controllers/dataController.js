@@ -22,8 +22,14 @@ class dataController {
     }
 
     async RatingSingle(req, res) {
-      let data = await knex.select('singlegame.user_id', 'users.login as login')
+      let data = await knex.select('singlegame.user_id', 'users.login as login', 'singlegame.score')
         .from('singlegame').join('users', 'users.id', '=', 'singlegame.user_id')
+        .distinct('singlegame.user_id')
+
+        // data.forEach((item, i) => {
+        //   data[i]['score'] = knex.select('*').from('singlegame').max('score').where('user_id', '=', item.user_id)
+        // })
+        console.log(data)
         res.json(data)
     }
 
