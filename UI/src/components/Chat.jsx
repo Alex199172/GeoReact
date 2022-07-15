@@ -1,16 +1,16 @@
 import React from 'react';
 import {useState, useRef, useEffect} from 'react';
 import '../styles/Chat.css';
-import socket from '../socket'
+
 
 const Chat = () => {
   const [messages, setMessages] = useState([])
   const [value, setValue] = useState('')
   const [connected, setConnected] = useState(false);
+  const socket = useRef()
 
-
-    function connect() {
-         socket.current = new WebSocket()
+  useEffect(() => {
+         socket.current = new WebSocket('ws://localhost:8081')
 
          socket.current.onopen = () => {
              setConnected(true)
@@ -31,7 +31,7 @@ const Chat = () => {
          socket.current.onerror = () => {
              console.log('Socket произошла ошибка')
          }
-     }
+  },[]);
 
      const sendMessage = async () => {
          const message = {
@@ -50,7 +50,8 @@ const Chat = () => {
       <button className="btn position-absolute top-0 end-0 m-3"
                type="button" data-bs-toggle="offcanvas"
                data-bs-target="#offcanvasScrolling"
-               aria-controls="offcanvasScrolling">
+               aria-controls="offcanvasScrolling"
+               >
            <img className="mt-5 btn__burger" src="https://img.icons8.com/material-sharp/24/000000/menu--v1.png" alt="chat" />
        </button>
 

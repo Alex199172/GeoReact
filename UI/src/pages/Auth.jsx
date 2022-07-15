@@ -25,7 +25,9 @@ const Auth = () => {
       }).then(rs => {
         rs.json().then(rs => {
           console.log('result', rs)
-          navigate('/menu-continents')
+          if(rs.status(200)) {
+            navigate('/menu-continents')
+          }
         })
       })
   }
@@ -42,7 +44,7 @@ const Auth = () => {
               </div>
                 <div className="p-4 pt-2">
                   <div>
-                    <label for="rg__name" className="form-label"></label>
+                    <label htmlFor="rg__name" className="form-label"></label>
                     <input
                         type="text"
                         className="form-control auth__login"
@@ -52,7 +54,7 @@ const Auth = () => {
                          />
                   </div>
                   <div>
-                    <label for="rg__name" className="form-label"></label>
+                    <label htmlFor="rg__name" className="form-label"></label>
                     <input
                         type="email"
                         className="form-control auth__email"
@@ -63,7 +65,7 @@ const Auth = () => {
                         />
                   </div>
                   <div>
-                    <label for="rg__name" className="form-label"></label>
+                    <label htmlFor="rg__name" className="form-label"></label>
                     <input
                         type="password"
                         className="form-control auth__password"

@@ -52,7 +52,7 @@ const Rating = () => {
                 </thead>
                 <tbody>
                   {result.map(elem => (
-                  <tr>
+                  <tr key = {elem.id}>
                     <th className="text-center align-middle" scope="row">{elem.login}</th>
                     <td className="text-center align-middle">0</td>
                     <td className="text-center align-middle">0</td>

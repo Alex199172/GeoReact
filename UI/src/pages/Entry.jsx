@@ -26,7 +26,7 @@ const Entry = () => {
              	console.log('rs_status', rs.status);
                rs.json().then(rs => {
                  console.log('result', rs)
-                 if(rs.status == 200) {
+                 if(rs.status(200)) {
                    localStorage.setItem('token', rs.token)
                    localStorage.setItem('id', rs.id)
                    localStorage.setItem('login', rs.login)
@@ -50,7 +50,7 @@ const Entry = () => {
             </div>
               <div className="p-4 pt-2 pb-2">
                 <div>
-                  <label for="rg__name" className="form-label"></label>
+                  <label htmlFor="rg__name" className="form-label"></label>
                   <input
                     type="text"
                     className="form-control entrie__login"
@@ -61,7 +61,7 @@ const Entry = () => {
                      />
                 </div>
                 <div>
-                  <label for="rg__name" className="form-label"></label>
+                  <label htmlFor="rg__name" className="form-label"></label>
                   <input
                     type="password"
                     className="form-control entrie__password"

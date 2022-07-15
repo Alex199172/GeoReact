@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState, useContext, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import {MapContext} from '../context';
 import '../styles/Game.css';
 import Nav from '../components/Nav';
@@ -30,10 +30,6 @@ const GameMultiplay = () => {
   const [preloaderActive, setPreloaderActive] = useState(false)
   const [trueColorAnswer, setTrueColorAnswer] = useState(false)
   const [falseColorAnswer, setFalseColorAnswer] = useState(false)
-  const {mapWorldValue, setMapWorldValue} = useContext(MapContext);
-  const {mapAfricaValue, setMapAfricaValue} = useContext(MapContext);
-  const {mapAsiaValue, setMapAsiaValue} = useContext(MapContext);
-  const {mapLatinAmericaValue, setMapLatinAmericaValue} = useContext(MapContext);
 
 
     useEffect(() => {
@@ -41,28 +37,17 @@ const GameMultiplay = () => {
       if(countries != []) {
         setTimeout(() => {
           setPreloaderActive(() => setPreloaderActive(false))
-        // if(mapWorldValue === true) {
-        //   getMapWorld()
-        // }
-        // if(mapAfricaValue === true) {
-        //   getMapAfrica()
-        // }
-        // if(mapAsiaValue === true) {
-        //   getMapAsia()
-        // }
-        // if(mapLatinAmericaValue === true) {
-        //   getMapLatinAmerica()
-        // }
-        if(localStorage.getItem('mapWorldValue') == 'true') {
+
+        if(localStorage.getItem('mapWorldValue') === 'true') {
           getMapWorld()
         }
-        if(localStorage.getItem('mapAfricaValue') == 'true') {
+        if(localStorage.getItem('mapAfricaValue') === 'true') {
           getMapAfrica()
         }
-        if(localStorage.getItem('mapAsiaValue') == 'true') {
+        if(localStorage.getItem('mapAsiaValue') === 'true') {
           getMapAsia()
         }
-        if(localStorage.getItem('mapLatinAmericaValue') == 'true') {
+        if(localStorage.getItem('mapLatinAmericaValue') === 'true') {
           getMapLatinAmerica()
         }
         }, 1300);
@@ -194,11 +179,11 @@ const GameMultiplay = () => {
      }
      if(randomCountry !== event.target.getAttribute('arial')) {
        setMoveScore(() => setMoveScore(moveScore++))
-       falseAnswer()
        setMove(() => setMove(move++))
+       falseAnswer()
      }
      console.log(event.target.getAttribute('arial'))
-     console.log(randomCountry)
+     console.log(move)
   }
 
   function choiceNameCountry() {
@@ -232,7 +217,10 @@ const GameMultiplay = () => {
 
   function finishGame() {
     setDisabled(() => setDisabled(false))
-    setTimer(() => setTimer(clearInterval(timer)))
+    setTimer((prev) => {
+    prev.timer = clearInterval(prev.timer);
+    return prev;
+    })
     setMove(() => setMove(move = 0))
     setMoveScore(() => setMoveScore(moveScore = 0))
     setScoreCount1(() => setScoreCount1(scoreCount1 = 0))
@@ -349,10 +337,10 @@ const GameMultiplay = () => {
               <g>
                   <g transform="translate(505.3871808293184,207.24503371416955) scale(1)">
                     <g transform={
-                                  `${(localStorage.getItem('mapWorldValue') == 'true') ? `translate(-30.3871808293184,40.24503371416955) scale(0.9)` : ''}
-                                   ${(localStorage.getItem('mapAfricaValue') == 'true') ? `translate(-480.3871808293184,-300.24503371416955) scale(1.8)` : ''}
-                                   ${(localStorage.getItem('mapAsiaValue') == 'true') ? `translate(-480.3871808293184,80.24503371416955) scale(1.2)` : ''}
-                                   ${(localStorage.getItem('mapLatinAmericaValue') == 'true') ? `translate(0.3871808293184,-400.24503371416955) scale(1.8)` : ''}
+                                  `${(localStorage.getItem('mapWorldValue') === 'true') ? `translate(-30.3871808293184,40.24503371416955) scale(0.9)` : ''}
+                                   ${(localStorage.getItem('mapAfricaValue') === 'true') ? `translate(-480.3871808293184,-300.24503371416955) scale(1.8)` : ''}
+                                   ${(localStorage.getItem('mapAsiaValue') === 'true') ? `translate(-480.3871808293184,80.24503371416955) scale(1.2)` : ''}
+                                   ${(localStorage.getItem('mapLatinAmericaValue') === 'true') ? `translate(0.3871808293184,-400.24503371416955) scale(1.8)` : ''}
                                    `}
                       >
                         {countries.map(country => (
