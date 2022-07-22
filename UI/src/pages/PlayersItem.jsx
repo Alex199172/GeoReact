@@ -28,15 +28,37 @@ function changeStatusAdmin() {
   setStatusAdmin(() => setStatusAdmin(true))
 }
 
-function changeDateUpdate() {
-  setStatusAdmin(() => {
-
-  })
+function changeStatus() {
+  if(statusValue === true) {
+    changeStatusBlock()
+    getData()
+  }else {
+    changeStatusUnlock()
+  }
 }
+
+function getData() {
+  let data = {
+         login : localStorage.getItem('login'),
+       }
+
+fetch('/data/PlayersItemBD', {
+         method: "POST",
+         body:JSON.stringify(data),
+         headers: {
+        'Content-Type': 'application/json'
+        },
+    }).then(rs => {
+      rs.json().then(rs => {
+        console.log('result', rs)
+      })
+    })
+  }
+
 
 useEffect(() => {
   setPreloaderActive(() => setPreloaderActive(true))
-  if(result != []) {
+  if(result !== []) {
     setTimeout(() => {
       setPreloaderActive(() => setPreloaderActive(false))
       fetch('/data/PlayersItem', {
@@ -63,7 +85,7 @@ useEffect(() => {
          <div className="rg__form mt-5">
          <h1 className="mt-3 mb-4">Players Item</h1>
            <Search
-            result={result}
+            // result={result}
             />
        <table className="table">
         <thead>
@@ -76,21 +98,21 @@ useEffect(() => {
            </tr>
           </thead>
          <tbody>
-            {result.map(elem => (
-           <tr>
+            {result.map((elem, idx) => (
+           <tr key={elem.idx}>
              <th className="text-center align-middle">{elem.login}</th>
              <td className="text-center align-middle text-white">
                <div className={statusValue === true ? 'blocked' : 'activeStatus'}>
                  {statusValue === true ? 'Blocked' : 'Active'}
                </div>
              </td>
-             <td className="text-center align-middle">{elem.created_at}</td>
+             <td className="text-center align-middle">{(elem.created_at).slice(0,-14)}</td>
              <td className="text-center align-middle"></td>
              <td className="text-center align-middle">
-             {(localStorage.getItem('role_id') == 1)
+             {(localStorage.getItem('role_id') === '1')
                ?
                <button className="btn__staus text-white"
-                onClick = {statusValue === true ? changeStatusBlock : changeStatusUnlock}
+                onClick = {changeStatus}
                 >
                  {statusValue === true ? 'unlock' : 'block'}
                </button>

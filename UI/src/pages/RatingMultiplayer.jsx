@@ -11,7 +11,7 @@ const Rating = () => {
 
   useEffect(() => {
     setPreloaderActive(() => setPreloaderActive(true))
-    if(result != []) {
+    if(result !== []) {
       setTimeout(() => {
         setPreloaderActive(() => setPreloaderActive(false))
         fetch('/data/PlayersItem', {
@@ -37,7 +37,7 @@ const Rating = () => {
           <div className="rg__form mt-5">
             <h1 className="mt-3 mb-4">Rating Multiplayer</h1>
             <Search
-              result={result}
+              // result={result}
               />
               <table className="table">
                 <thead>

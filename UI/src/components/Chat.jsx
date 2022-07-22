@@ -40,9 +40,24 @@ const Chat = () => {
              message: value,
              event: 'message'
          }
+         sendAudio()
          socket.current.send(JSON.stringify(message));
          setValue('')
      }
+
+     function dateChat() {
+      let date = new Date();
+      let timeMessage = String(date.getDate()).padStart(2, '0') + '.' +
+      String(date.getMonth() + 1).padStart(2, '0') + '.' +
+      date.getFullYear() + " " +
+      new Date().toLocaleTimeString().slice(0,-3);
+      return timeMessage;
+    }
+
+    function sendAudio() {
+      let sendAudio = new Audio('assets/audio/sendMessage.mp3');
+      sendAudio.play();
+    }
 
 
   return (
@@ -71,18 +86,28 @@ const Chat = () => {
          <div className="offcanvas-body chat__fon">
            <p className="text-light text-center">Online</p>
            <div className="chat__form mb-2">
-              {messages.map(elem =>
-                     <div key={elem.id}>
+            <div>
+              {messages.map((elem, idx) =>
+                     <div key={elem.idx}>
                          {elem.event === 'connection'
-                             ? <div>
+                             ? <div className="text-center text-light">
                                  Пользователь {elem.login} подключился
                                </div>
-                             : <div>
-                                 {elem.login}. {elem.login}
+                             : <div className="bg-light p-2 mt-4 rounded opacity-75">
+                                 <p className="color__first mb-0">
+                                    {elem.login}
+                                 </p>
+                                 <div>
+                                    {elem.message}
+                                 </div>
+                                 <p className="color__first text-end mb-0">
+                                    {dateChat()}
+                                 </p>
                              </div>
                          }
                       </div>
               )}
+            </div>
            </div>
            <div className="row">
              <input

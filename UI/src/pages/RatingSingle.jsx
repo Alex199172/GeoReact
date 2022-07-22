@@ -11,7 +11,7 @@ const Rating = () => {
 
   useEffect(() => {
     setPreloaderActive(() => setPreloaderActive(true))
-    if(result != []) {
+    if(result !== []) {
       setTimeout(() => {
         setPreloaderActive(() => setPreloaderActive(false))
         fetch('/data/RatingSingle', {
@@ -54,10 +54,10 @@ const Rating = () => {
                   {result.map(elem => (
                   <tr key = {elem.id}>
                     <th className="text-center align-middle" scope="row">{elem.login}</th>
-                    <td className="text-center align-middle">0</td>
-                    <td className="text-center align-middle">0</td>
-                    <td className="text-center align-middle">0</td>
-                    <td className="text-center align-middle">0</td>
+                    <td className="text-center align-middle">{elem.score}</td>
+                    <td className="text-center align-middle">{elem.score}</td>
+                    <td className="text-center align-middle">{elem.score}</td>
+                    <td className="text-center align-middle">{elem.score}</td>
                   </tr>
                     ))}
                 </tbody>

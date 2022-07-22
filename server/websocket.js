@@ -1,8 +1,8 @@
 const ws = require('ws');
 
 let wss = new ws.Server({
-    port: 8081, 
-});
+    port: 8081,
+  }, () => console.log(`Websocket started`));
 
 wss.on('connection', function connection(ws) {
     ws.on('message', function (message) {

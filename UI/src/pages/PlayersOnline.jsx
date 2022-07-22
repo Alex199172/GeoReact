@@ -41,7 +41,8 @@ const PlayersOnline = () => {
           <div className="rg__form mt-5">
             <h1 className="mt-3 mb-4">Players Online</h1>
             <Search
-              result={result}/>
+              // result={result}
+              />
             <table className="table">
               <thead>
                 <tr className="">

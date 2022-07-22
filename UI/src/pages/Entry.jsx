@@ -9,7 +9,8 @@ const Entry = () => {
   const navigate = useNavigate()
 
 
- function getData() {
+ function getData(event) {
+   event.preventDefault()
    let data = {
           login : loginValue,
           password : passwordlValue
@@ -19,20 +20,19 @@ const Entry = () => {
                   method: "POST",
                   body:JSON.stringify(data),
                   headers: {
-                 'Content-Type': 'application/json'
+                 'Content-Type': 'application/json',
+                 'Authorization': 'Bearer ' + localStorage.getItem('token')
                  },
              }).then(rs => {
-             	console.log('rs', rs);
-             	console.log('rs_status', rs.status);
+               if(rs.status === 200) {
+                 navigate('/menu-continents')
+               }
                rs.json().then(rs => {
                  console.log('result', rs)
-                 if(rs.status(200)) {
                    localStorage.setItem('token', rs.token)
                    localStorage.setItem('id', rs.id)
                    localStorage.setItem('login', rs.login)
                    localStorage.setItem('role_id', rs.role_id)
-                   navigate('/menu-continents')
-                 }
                })
              })
          }

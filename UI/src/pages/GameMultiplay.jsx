@@ -34,7 +34,7 @@ const GameMultiplay = () => {
 
     useEffect(() => {
       setPreloaderActive(() => setPreloaderActive(true))
-      if(countries != []) {
+      if(countries !== []) {
         setTimeout(() => {
           setPreloaderActive(() => setPreloaderActive(false))
 
@@ -92,12 +92,11 @@ const GameMultiplay = () => {
       setDisabled(() => setDisabled(false))
       setColorTimer(() => setColorTimer(false))
       setSeconds(seconds = 20)
-      if(scoreCount1 < 4 || scoreCount2 < 4) {
-        startTimer()
-      }else{
+      startTimer()
+      if(scoreCount1 === 5 || scoreCount2 === 5) {
         finishGame()
       }
-    }
+     }
 
     function showModal() {
       setModalActive(() => setModalActive(true))
@@ -156,7 +155,7 @@ const GameMultiplay = () => {
       if(move%2 === 0) {
         setContentModal(() => setContentModal(contentModal = `Mistake, player number 2 goes`))
       }
-      if(move%2 != 0) {
+      if(move%2 !== 0) {
         setContentModal(() => setContentModal(contentModal = `Mistake, player number 1 goes`))
       }
     }
@@ -173,17 +172,17 @@ const GameMultiplay = () => {
 
   function choiceCountry(event) {
      if(randomCountry === event.target.getAttribute('arial')) {
-       setMove(() => setMove(move++))
        trueAnswer()
        getFlags(event)
      }
      if(randomCountry !== event.target.getAttribute('arial')) {
-       setMoveScore(() => setMoveScore(moveScore++))
-       setMove(() => setMove(move++))
+       setMoveScore(() => setMoveScore(moveScore+1))
+       setMove(() => setMove(move+1))
        falseAnswer()
      }
      console.log(event.target.getAttribute('arial'))
      console.log(move)
+     console.log(moveScore)
   }
 
   function choiceNameCountry() {
@@ -206,7 +205,7 @@ const GameMultiplay = () => {
         showModal()
         setContentModal(() => setContentModal(contentModal = `Player number 2 won`))
       }
-      if(scoreCount1 < 5 && scoreCount2 < 5) {
+      if(scoreCount1 < 4 && scoreCount2 < 4) {
         showModalDescription()
       }
       choiceNameCountry()
@@ -239,10 +238,10 @@ const GameMultiplay = () => {
 
   function incrementScoreCount() {
       if(moveScore%2 === 0) {
-        setScoreCount1(() => setScoreCount1(scoreCount1++))
+        setScoreCount1(() => setScoreCount1(scoreCount1+1))
       }
-      if(moveScore%2 != 0) {
-        setScoreCount2(() => setScoreCount2(scoreCount2++))
+      if(moveScore%2 !== 0) {
+        setScoreCount2(() => setScoreCount2(scoreCount2+1))
       }
     }
 

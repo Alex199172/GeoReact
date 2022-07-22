@@ -17,7 +17,7 @@ const Traning = () => {
 
   useEffect(() => {
     setPreloaderActive(() => setPreloaderActive(true))
-    if(countries != []) {
+    if(countries !== []) {
       setTimeout(() => {
         getMapWorld()
         setPreloaderActive(() => setPreloaderActive(false))

@@ -10,6 +10,12 @@ class dataController {
     }
 
     async PlayersItem(req, res) {
+      let data = await knex.select('login', 'created_at', 'updated_at')
+        .from('users')
+        res.json(data)
+    }
+
+    async PlayersItemBD(req, res) {
       let data = await knex.select('login', 'created_at')
         .from('users')
         res.json(data)

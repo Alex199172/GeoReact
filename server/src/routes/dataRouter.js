@@ -5,6 +5,7 @@ const controller = require('../controllers/dataController')
 
 router.get('/PlayersHistory', controller.PlayersHistory)
 router.get('/PlayersItem', controller.PlayersItem)
+router.get('/PlayersItemBD', controller.PlayersItemBD)
 router.get('/PlayersOnline', controller.PlayersOnline)
 router.get('/RatingSingle', controller.RatingSingle)
 router.post('/RatingSingleBD', controller.RatingSingleBD)

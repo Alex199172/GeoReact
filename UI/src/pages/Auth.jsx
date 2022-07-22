@@ -9,7 +9,8 @@ const Auth = () => {
   const [passwordValue, setPasswordValue] = useState('')
   const navigate = useNavigate()
 
-  function getData() {
+  function getData(event) {
+    event.preventDefault()
     let data = {
            login : loginValue,
            email : emailValue,
@@ -20,14 +21,15 @@ const Auth = () => {
            method: "POST",
            body:JSON.stringify(data),
            headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
           },
       }).then(rs => {
+        if(rs.status === 200) {
+          navigate('/menu-continents')
+        }
         rs.json().then(rs => {
           console.log('result', rs)
-          if(rs.status(200)) {
-            navigate('/menu-continents')
-          }
         })
       })
   }

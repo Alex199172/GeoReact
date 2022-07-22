@@ -31,7 +31,7 @@ const Game = () => {
 
   useEffect(() => {
     setPreloaderActive(() => setPreloaderActive(true))
-    if(countries != []) {
+    if(countries !== []) {
       setTimeout(() => {
         setPreloaderActive(() => setPreloaderActive(false))
       if(localStorage.getItem('mapWorldValue') === 'true') {
