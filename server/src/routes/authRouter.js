@@ -5,6 +5,7 @@ const {check} = require('express-validator')
 
 
 
+
 router.post('/registration', controller.registration)
   check('login', 'Error').notEmpty().isLength({ min: 3 }).trim().escape(),
   check('password', 'Error').notEmpty().trim().escape(),

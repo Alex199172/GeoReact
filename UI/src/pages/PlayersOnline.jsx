@@ -3,32 +3,48 @@ import Nav from '../components/Nav';
 import '../styles/PlayersHistory.css';
 import Search from '../components/Search';
 import ModalInvitation from '../components/ModalInvitation';
-import {useState, useEffect} from 'react';
+import {useState, useRef, useEffect} from 'react';
+
 
 const PlayersOnline = () => {
   const [modalInvitationActive, setModalInvitationActive] = useState(false)
+  const socket = useRef()
   let [result, setResult] = useState([])
+  let [loginArray, setLoginArray] = useState([])
+  let [loginObj, setLoginObj] = useState([])
+
 
   function invationPlayer() {
     setModalInvitationActive(() => setModalInvitationActive(true))
   }
 
   useEffect(() => {
-      fetch('/data/PlayersOnline', {
-                method: "Get",
-                headers: {
-                'Content-Type': 'application/json'
-                },
-            }).then(rs => {
-              rs.json().then(rs => {
-                console.log('result', rs)
-                setResult(rs)
-                console.log(result)
-             })
-            })
-          },[]);
-          console.log(result)
+      socket.current = new WebSocket('ws://localhost:8081')
 
+      socket.current.onopen = () => {
+          let loginObj = {
+            event: 'connection',
+            login: localStorage.getItem('login'),
+            id: localStorage.getItem('id'),
+            free: true
+          }
+          setLoginArray(loginArray.push(loginObj))
+          socket.current.send(JSON.stringify(loginObj))
+      }
+      socket.current.onmessage = (event) => {
+        const loginArray = JSON.parse(event.data)
+        setLoginArray(prev => [loginArray, ...prev])
+
+      }
+      socket.current.onclose= () => {
+          console.log('Socket закрыт')
+      }
+      socket.current.onerror = () => {
+          console.log('Socket произошла ошибка')
+      }
+      console.log(loginArray)
+      console.log(loginObj)
+  },[]);
 
   return (
     <div>
@@ -53,9 +69,9 @@ const PlayersOnline = () => {
                 </tr>
               </thead>
               <tbody>
-                {result.map(elem => (
+                {loginArray.map((elem,idx) => (
                   <tr>
-                    <th className="text-center align-middle" scope="row">{elem.login}</th>
+                    <th className="text-center align-middle" scope="row">{elem}</th>
                     <td className="text-center align-middle">
                        <img className="checked" src="assets/img/checked.png" alt="chat" />
                     </td>

@@ -36,8 +36,8 @@ class authController {
           role_id: 1,
         })
         return res.json({message: 'Registration completed successfully'})
-      } catch(e) {
-          console.log(e)
+      } catch(event) {
+          console.log(event)
           res.status(400).json({message: 'Registration error'})
       }
     }
@@ -51,6 +51,7 @@ class authController {
         }
           const {login, password, role_id} = req.body
           const row = await knex.select('*').where('login','=', req.body.login).from('users')
+          console.log(req.headers.authorization.split(' ')[1]);
 
           if(row.length <= 0) {
           return res.status(400).json({message: `${login} dont found`})
@@ -60,10 +61,10 @@ class authController {
         if(!validPassword) {
             return res.status(400).json({message: 'Incorrect password'})
         }
-        const token = generateAccessToken(row[0]._id, row[0].login)
+        const token = generateAccessToken(row[0].id, row[0].login)
         return res.json({token, 'id':row[0].id, 'login':row[0].login,'role_id':row[0].role_id})
-          } catch(e) {
-          console.log(e)
+      } catch(event) {
+          console.log(event)
           res.status(400).json({message: 'Login error'})
           }
       }
